@@ -1,0 +1,83 @@
+﻿@model RAR.WEB.MVC.Models.LoadReport
+<html>
+<head>
+    <title>Caricamento degli esiti Furtati/Smarriti</title>
+
+</head>
+<body>
+    <div class="text-center">
+        <h1 class="display-4">Caricamento degli esiti Furtati/Smarriti</h1>
+    </div>
+    <h4>Files caricati:</h4>
+    <div>
+        <ul>
+            @{var lastItem = Model.dictionaryOfFiles.Last(); }
+            @foreach (var item in Model.dictionaryOfFiles)
+            {
+                if (!item.Equals(lastItem))
+                {
+                    <li>
+                        @*<a asp-action="Download"
+                            asp-route-filename="@item.Key">*@
+                        @*@Html.ActionLink(@item.Key, @item.Value);*@
+                        @item.Key
+                        @*<label for="download">Download</label>
+                            <a href="@Href(item.Value)">Download</a>*@
+                        @*</a>*@
+                    </li>
+
+                }
+            }
+        </ul>
+    </div>
+    <hr />
+    <h4>Risultato caricamento files :</h4>
+    @Html.TextAreaFor(Model => Model.LoadReportText, new { @readonly = true, rows = 40, cols = 120 })
+
+    <hr />
+    <input value='Download report' type='button'
+           onclick='downloadText(document.getElementById("LoadReportText").value);' class="btn btn-outline-primary" />
+
+    @Html.ActionLink("Aggiorna dati", "AggiornaDatiAsync", "UploadFile",null, new {id = "updateData" })
+    <div id="dialog" title="Conferma">
+        <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span><p name="confirmMessage"></p>
+    </div>
+    <script type="text/javascript">  
+        $(document).ready(function () {
+            $("#dialog").dialog({
+                autoOpen: false,
+                modal: true,
+                resizable: false,
+                height: "auto",
+                width: 400,
+            });
+            $("a[id=updateData]").click(function (e) {
+                e.preventDefault();
+                var targetUrl = $(this).attr("href");
+               
+                $("p[name=confirmMessage]").html("Aggiornare gli esiti sul database?");
+                $("#dialog").dialog({
+                    buttons: {
+                        "Ok": function () {
+                            window.location.href = targetUrl;
+                        },
+                        "Annulla": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+                $("#dialog").dialog("open");
+            });
+        }); 
+
+
+        function downloadText(s) {
+            var link = document.createElement("a");
+            link.href = "data:text/csv," + encodeURIComponent(s);
+            link.download = "report_" + Date.now() + ".txt";
+            link.click();
+        }
+    </script>
+
+</body>
+</html>

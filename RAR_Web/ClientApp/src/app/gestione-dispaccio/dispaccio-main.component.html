@@ -1,0 +1,57 @@
+<h5>Gestione Dispacci</h5>
+<p *ngIf="!dispacci"><em>Loading...</em></p>
+
+<form formGroup="dispaccioForm">
+  <!--(ngSubmit)="onSubmit()">-->
+  <fieldset id="fldNewDispaccio">
+    <legend>Arrivo nuovo dispaccio </legend>
+    <label>
+      Servizio:
+      <select formControlName="countryControl">
+        <option [value]="country" *ngFor="let country of countries">             {{country}}</option>
+      </select>
+    </label>
+    <label>
+      Data lavorazione:
+      <input type="date" formControlName="dataLavorazione" class="form-control">
+    </label>
+
+    <label>
+      Cod. dispaccio:
+      <input type="text" formControlName="codeRacc">
+    </label>
+    <div class="form-group">
+      <button (click)="nuovoDispaccio()" class="btn btn-dark">Nuovo dispaccio</button>
+      <!-- <button type="submit" [disabled]="!dispaccioForm.valid">Submit</button> -->
+    </div>
+  </fieldset>
+</form>
+<br />
+<fieldset id="fldNewDispaccio">
+  <legend>Lista Dispacci </legend>
+  <table class='table table-striped' *ngIf="dispacci">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Cod. Dispaccio</th>
+        <th>Mittente</th>
+        <th>Data Arrivo</th>
+        <th>Data Apertura</th>
+        <th>Data chiusura</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dispaccio of dispacci">
+        <td>{{ dispaccio.id }}</td>
+        <td>{{ dispaccio.codeRacc }}</td>
+        <td>{{ dispaccio.mittente }}</td>
+        <td>{{ dispaccio.dataArrivo }}</td>
+        <td>{{ dispaccio.dataApertura }}</td>
+        <td>{{ dispaccio.dataChiusura }}</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</fieldset>
+

@@ -1,0 +1,65 @@
+﻿@model RAR.ViewModel.DataPostalizzazioneRaccs
+@{
+    ViewData["Title"] = "Ricerca Per Data Postalizzazione Raccomandata";
+}
+
+<h1>Ricerca Per Data Postalizzazione Raccomandata</h1>
+<br />
+<br />
+@Html.Label("Elenco distinte da: ")
+@Model.SearchDate.From.ToShortDateString()
+@Html.Label(" a: ")
+@Model.SearchDate.To.ToShortDateString()
+<br />
+
+@using (Html.BeginForm("ExportToXls", "DataPostalizzazioneRaccomandata", FormMethod.Post))
+{
+    <input type="hidden" name="dalGiorno" value="@Model.SearchDate.From" />
+    <input type="hidden" name="alGiorno" value="@Model.SearchDate.To" />
+    <input type="submit" name="buttonExportToExcel" value="Su foglio xls" />
+}
+<br />
+<br />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DataPostalizzazioneRacc[0].Distinta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataPostalizzazioneRacc[0].Totale)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataPostalizzazioneRacc[0].FileRrdp30No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataPostalizzazioneRacc[0].DataPostalizzazione)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.DataPostalizzazioneRacc)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Distinta)
+
+                    @using (Html.BeginForm("Search", "DataPostalizzazioneRaccomandata", FormMethod.Post))
+                    {
+                        <input type="hidden" name="distinta" value="@item.Distinta" />
+                        <input type="submit" name="button" value="Cerca" />
+                    }
+                </td>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Totale)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileRrdp30No)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataPostalizzazione)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

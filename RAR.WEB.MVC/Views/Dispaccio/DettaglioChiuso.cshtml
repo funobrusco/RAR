@@ -1,0 +1,61 @@
+﻿@model RAR.ViewModel.DispaccioApertoViewModel
+
+@{
+    ViewData["Title"] = "Tracciatura dispaccio" + ViewData["IdDispaccio"] + " chiuso";
+}
+
+<h1>Tracciatura dispaccio @ViewData["CodDispaccio"] chiuso</h1>
+
+<div>
+    <h4>Dettaglio tracciatura</h4>
+    <hr />
+    <fieldset>
+        <legend>
+            Totale inserite @Model.cartolineDispaccio.Count()
+        </legend>
+        <table class="table table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.cartolineDispaccio.FirstOrDefault().Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.cartolineDispaccio.FirstOrDefault().CodeRacc)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.cartolineDispaccio.FirstOrDefault().DataTracciatura)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.cartolineDispaccio.FirstOrDefault().DataNotifica)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.cartolineDispaccio.FirstOrDefault().Consegna)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.cartolineDispaccio)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CodeRacc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataTracciatura)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataNotifica)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Consegna)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </fieldset>
+</div>
+<a asp-controller="Dispaccio" asp-action="Index">Fine tracciatura</a>

@@ -1,0 +1,178 @@
+﻿@model RAR.ViewModel.DispaccioApertoViewModel
+
+@{
+    ViewData["Title"] = "Tracciatura dispaccio" + ViewData["CodDispaccio"];
+}
+@*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">*@
+<h1>Tracciatura dispaccio @ViewData["CodDispaccio"]</h1>
+<div>
+    <h4>Dettaglio tracciatura</h4>
+    <hr />
+    @Html.ValidationMessage("CustomError")
+    <fieldset>
+        <legend>
+            Dati tracciatura
+        </legend>
+        <form asp-controller="Dispaccio" asp-action="Nuova">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-row">
+                <div class="col-md-2">
+                    <label for="DataTracciatura" class="col-form-label">Data lavorazione</label>
+                </div>
+                <div class="col-md-2">
+                    <input required class="form-control form-control-sm" type="date" min="2010-01-01" max="2050-12-31" id="DataTracciatura" name="DataTracciatura" data-date-format="DD MMMM YYYY" value=@DateTime.Now.ToString("yyyy-MM-dd")  >
+                </div>
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-2">
+                    <label for="DataNotifica" class="col-form-label">Data notifica</label>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm" type="date" id="DataNotifica" name="DataNotifica" data-date-format="DD MMMM YYYY" value=@DateTime.Now.ToString("yyyy-MM-dd")>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-2">
+                    <label for="CodeRacc" class="col-form-label">Cod.Raccomandata:</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" required pattern="d{12,12}" minlength=12 maxlength=12 id="CodeRacc" max="999999999999" min="100000000000" name="CodeRacc" class="form-control form-control-sm" title="12 caratteri numerici">
+                </div>
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-2">
+                    <label for="consegna" class="col-form-label">Consegna</label>
+                </div>
+                <div class="col-md-2">
+                    <select name="CodiceTipoConsegna" id="CodiceTipoConsegna" asp-items="Model.tipoConsegnaSelect" class="form-control form-control-sm"></select>
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="col-md-2">
+                    <input type="hidden" asp-for="dispaccio.Id" name="IdDispaccioIn" asp-short-name="true" />
+                    <input type="submit" value="Nuovo" class="btn btn-primary" />
+                </div>
+            </div>
+            @if (@TempData["Errore"] != null)
+            {
+                <div class="form-row alert ">
+                    <div class="col-md-12 alert-danger">
+                        <p>Errore - @TempData["Errore"]</p>
+                    </div>
+                </div>
+            }
+            else if (@TempData["Conferma"] != null)
+            {
+                <div class="form-row alert">
+                    <div class="col-md-12 alert-success">
+                        <p>Conferma - @TempData["Conferma"]</p>
+                    </div>
+                </div>
+            }
+        </form>
+    </fieldset>
+    <fieldset>
+        <legend>
+            Totale inserite @Model.cartolineDispaccio.Count()
+        </legend>
+        @if (@Model.cartolineDispaccio.Any())
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.cartolineDispaccio.FirstOrDefault().Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.cartolineDispaccio.FirstOrDefault().CodeRacc)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.cartolineDispaccio.FirstOrDefault().DataTracciatura)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.cartolineDispaccio.FirstOrDefault().DataNotifica)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.cartolineDispaccio.FirstOrDefault().Consegna)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.cartolineDispaccio)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CodeRacc)
+                            </td>
+                            <th>
+                                @Html.DisplayFor(modelItem => item.DataTracciatura)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DataNotifica)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Consegna)
+                            </td>
+                            <td>
+                                @*  @Html.ActionLink("Cancella", "Cancella", "Cartolina", new { codeRacc = @item.CodeRacc, idDispaccio = @item.IdDispaccioIn }, new { onclick = "return confirm('Si intende procedere con la cancellazione della cartolina " + @item.CodeRacc + "?');" })
+                                    @Html.ActionLink("Cancella", "Cancella", "Cartolina", new { codeRacc = @item.CodeRacc, idDispaccio = @item.IdDispaccioIn }, new { onclick = "return messaggio('Si intende procedere con la cancellazione della cartolina " + @item.CodeRacc + "?','" + @item.CodeRacc + "');" })
+                                *@
+                                @Html.ActionLink("Cancella", "Cancella", "Cartolina", new { CodeRacc = @item.CodeRacc, idDispaccio = @item.IdDispaccioIn }, new { name = "actionCancella", @class = "btn btn-danger btn-sm", CodeRacc = @item.CodeRacc })
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </fieldset>
+</div>
+
+<a asp-controller="Dispaccio" asp-action="Index">Fine tracciatura</a>
+
+<div id="dialog" title="Conferma">
+    <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span><p name="confirmMessage"></p>
+</div>
+<script type="text/javascript">
+    document.getElementById("CodeRacc").oninput = function () {
+        if (this.value.length > 12) {
+            this.value = this.value.slice(0, 12);
+        }
+    }
+
+
+    $(document).ready(function () {
+        $("#dialog").dialog({
+            autoOpen: false,
+            modal: true,
+            resizable: false,
+            height: "auto",
+            width: 400,
+        });
+
+        $("a[name=actionCancella]").click(function (e) {
+            e.preventDefault();
+            var targetUrl = $(this).attr("href");
+            var CodeRacc = $(this).attr("CodeRacc");
+            $("p[name=confirmMessage]").html("Si è sicuri di voler <strong>cancellare</strong> la cartolina con codice raccomandata: <strong> " + CodeRacc + "</strong>");
+            $("#dialog").dialog({
+                buttons: {
+                    "Ok": function () {
+                        window.location.href = targetUrl;
+                    },
+                    "Annulla": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $("#dialog").dialog("open");
+        });
+    }); // end of $(document).ready
+</script>

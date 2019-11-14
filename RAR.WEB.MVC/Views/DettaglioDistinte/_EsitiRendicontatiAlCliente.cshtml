@@ -1,0 +1,74 @@
+﻿@model RAR.ViewModel.DettaglioCodiceRaccViewModel
+
+<div>
+    <p align="center">Esiti rendicontati al Cliente :</p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodiceEsitoRendes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.FlagFonteEsitoRendes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.FileNameArRendes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataLoadDatiRendes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataElabRendes)
+                </th>
+               
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataNotificaRendes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DispaccioOutRendes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.FileNameEstrattoRendes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataEstrazioneRendes)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodiceEsitoRendes)
+                </td>
+                <th>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.FlagFonteEsitoRendes)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.FileNameArRendes)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataLoadDatiRendes)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataElabRendes)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataNotificaRendes)
+                </td>
+                <th>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DispaccioOutRendes)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.FileNameEstrattoRendes)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataEstrazioneRendes)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,143 @@
+﻿@model RAR.ViewModel.StoricoCartelleViewModel
+
+@{
+    ViewData["Title"] = "Storico cartelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Storico Cartelle</h4>
+<hr />
+<div class="container">
+    <!--style="background-color:#aacef2" -->
+    <form asp-controller="StoricoCartelle" asp-action="RicercaRaccomandate" id="myForm">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <h6>IMPOSTA UN TIPO DI RICERCA</h6>
+        <div class="form-group">
+            <div class="col-md-8">
+                <fieldset style="background-color:#e3eaee;">
+                    <legend>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="defaultUnchecked" name="radios" value="codici">
+                            <label class="custom-control-label" for="defaultUnchecked">per codice raccomandata:</label>
+                        </div>
+                    </legend>
+                    <label asp-for="codiciRaccomandata" class="control-label"></label>
+                    <textarea disabled="disabled" id="codiciRaccomandata" asp-for="codiciRaccomandata" class="form-control" title="Inserire un Codice Raccomandata per riga."></textarea>
+                    <span asp-validation-for="codiciRaccomandata" class="text-danger"></span>
+                </fieldset>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-8">
+                <fieldset style="background-color:#e3eaee;">
+                    <legend>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="defaultChecked" name="radios" checked value="date">
+                            <label class="custom-control-label" for="defaultChecked">per data postalizzazione:</label>
+                        </div>
+                    </legend>
+                    <div class="form-row">
+                        <div class="col-md-2">
+                            <label asp-for="dalGiorno" class="control-label"></label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input asp-for="dalGiorno" class="form-control" data-date-format="DD MMMM YYYY" placeholder="gg/mm/aaaa" id="dalGiorno" />
+                            <span asp-validation-for="dalGiorno" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-1"></div>
+
+                        <div class="col-md-2">
+                            <label asp-for="alGiorno" class="control-label"></label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input asp-for="alGiorno" class="form-control" data-date-format="format: dd/MM/yyyy" placeholder="gg/mm/aaaa" id="alGiorno" />
+                            <span asp-validation-for="alGiorno" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @{ if (ViewBag.errore != null)
+                        {
+                            <div class="bs-alert">
+                                <div class="alert alert-warning alert-dismissible fade show">
+                                    <strong>Attenzione!</strong> @ViewBag.errore
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                </div>
+                            </div>
+                        }
+                    }
+                </fieldset>
+            </div>
+        </div>
+        <div class="form-group">
+            <input id="invia" type="submit" value="Cerca" class="btn btn-primary" />
+            <input id="annulla" type="reset" value="Annulla" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+<link href="~/lib/jquery-ui-themes-1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="~/lib/jquery-ui-1.12.1/jquery-ui.js"></script>
+<script src="~/lib/jquery/dist/datepicker-it.js"></script>
+
+<style>
+    label {
+        display: inline-block;
+        width: 15em;
+    }
+
+    .bs-alert {
+        margin: 20px;
+    }
+</style>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(function () {
+
+            var dateFormat = "dd/mm/yyyy",
+                from = $("#dalGiorno")
+                    .datepicker({
+                        defaultDate: "+1w",
+                        changeMonth: true,
+                        numberOfMonths: 1
+                    })
+                    .on("change", function () {
+                        to.datepicker("option", "minDate", this.value);
+                    }),
+                    to = $("#alGiorno").datepicker({
+                        defaultDate: "+1w",
+                        changeMonth: true,
+                        numberOfMonths: 1
+                    })
+                    .on("change", function () {
+                        from.datepicker("option", "maxDate", this.value);
+                    });
+
+            var maxLength = 12;
+            $('#codiciRaccomandata').on('input focus keydown keyup', function () {
+                var text = $(this).val();
+                var lines = text.split(/(\r\n|\n|\r)/gm);
+                for (var i = 0; i < lines.length; i++) {
+                    if (lines[i].length > maxLength) {
+                        lines[i] = lines[i].substring(0, maxLength);
+                    }
+                }
+                $(this).val(lines.join(''));
+            });
+
+            $("input[name=radios]").click(function (e) {
+                if ($("input[name=radios]:checked").val() == "date") {
+                    $("#dalGiorno").removeAttr("disabled");
+                    $("#alGiorno").removeAttr("disabled");
+                    $("#codiciRaccomandata").val('').attr("disabled", "disbled");
+                } else {
+                    $("#dalGiorno").val('').attr("disabled", "disbled");
+                    $("#alGiorno").val('').attr("disabled", "disbled");
+                    $("#codiciRaccomandata").removeAttr("disabled");
+                }
+            });
+        });
+    </script>
+}

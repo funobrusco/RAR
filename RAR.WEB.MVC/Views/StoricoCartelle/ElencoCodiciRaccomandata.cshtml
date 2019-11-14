@@ -1,0 +1,72 @@
+﻿@model RAR.ViewModel.StoricoCartelleViewModel
+@{
+    ViewData["Title"] = "Ricerca Per codici Raccomandata";
+}
+
+<h1>Indice raccomandate</h1>
+<br />
+<br />
+@{ if (ViewBag.errore != null)
+    {
+        <div class="bs-alert">
+            <div class="alert alert-warning alert-dismissible fade show">
+                <strong>Attenzione!</strong> @ViewBag.errore
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        </div>
+    }
+}
+@if (Model.Raccomandate.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Raccomandate.First().codeRacc)
+                </th>
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Raccomandate.First().numeroDistinta)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Raccomandate)
+            {
+                <tr>
+                    <td>
+                        <div class="hero-button text-center">
+                            
+                            <form asp-controller="DettaglioDistinte" asp-action="CercaRacc1" id="formDettaglioDistinte" method="post">
+                                <input asp-for="CodeRacc" type="hidden" value="@item.codeRacc" name="codeRacc"/>
+                                <input type="submit" class="btn btn-outline-primary" name="buttonCerca" value="Cerca" />
+                            </form>
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.codeRacc)
+                    </td>
+                    <td>
+                        <div class="hero-button text-center">
+                            <form asp-controller="StoricoCartelle" asp-action="DettaglioDistinta" id="formStoricoCartelle" >
+                                <input asp-for="Distinta" type="hidden" value="@item.numeroDistinta"/>
+                                <input type="submit" class="btn btn-outline-primary" name="buttonCerca" value="Cerca" />
+                            </form>
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.numeroDistinta)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>La ricerca non ha restituito risultati</h3>
+}
+<br>
+<a asp-controller="StoricoCartelle" asp-action="Index">Torna alla maschera di ricerca</a>

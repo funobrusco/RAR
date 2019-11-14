@@ -1,0 +1,42 @@
+﻿@model RAR.ViewModel.StoricoCartelleViewModel
+@{
+    ViewData["Title"] = "Dettaglio Distinta";
+}
+
+<h1>Distinta</h1>
+@Html.Label("Numero distinta : ")
+<span id="idDistinta">@Model.dettaglioDistinta.numeroDistinta</span>
+<br />
+<br />
+
+<table class="table table-striped">
+    <thead>
+        <tr style="background-color:#e3eaee">
+            <th>
+                @Html.DisplayNameFor(m => m.dettaglioDistinta.totLettere)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.dettaglioDistinta.fileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.dettaglioDistinta.DataSpedizione)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(m => m.dettaglioDistinta.totLettere)
+            </td>
+            <td>
+                @Html.DisplayFor(m => m.dettaglioDistinta.fileName)
+            </td>
+            <td>
+                @Convert.ToDateTime(Model.dettaglioDistinta.DataSpedizione).ToString("dd/MM/yyyy")
+            </td>
+        </tr>
+    </tbody>
+</table>
+@*Back to previous page*@
+@*<a href="javascript:void(0);" onclick="history.go(-1);">Torna indietro</a>*@
+<a asp-controller="DettaglioDistinte" asp-action="CercaRacc" asp-route-codeRacc="@Model.CodeRacc" >Torna indietro</a>

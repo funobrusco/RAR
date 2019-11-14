@@ -1,0 +1,91 @@
+﻿@model RAR.ViewModel.DettaglioCodiceRaccViewModel
+
+<div>
+    <p align="center">Disguidi da lavorazione CFSM :</p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataElabNewdisguidi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodiceEsitoNewdisguidi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.FlagFonteEsitoNewdisguidi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodiceMotivoNewdisguidi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodeOpeDeNewdisguidi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataNotificaNewdisguidi)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataDisguidoNewdisguidi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataElaborazioneNewdisguidi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.ElaboratoNewdisguidi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.IdDispaccioOutNewdisguidi)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataElabNewdisguidi)
+                </td>
+                <th>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodiceEsitoNewdisguidi)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.FlagFonteEsitoNewdisguidi)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodiceMotivoNewdisguidi)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodeOpeDeNewdisguidi)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataNotificaNewdisguidi)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataDisguidoNewdisguidi)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataElaborazioneNewdisguidi)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.ElaboratoNewdisguidi)*@
+                    @if (Model.dettaglioPrimoEsitofonteEsaRacc.ElaboratoNewdisguidi != null)
+                    {
+                        @if (Model.dettaglioPrimoEsitofonteEsaRacc.ElaboratoNewdisguidi == true)
+                        {<text>SI</text>}
+                        else
+                             {<text>NO</text>}
+                    }
+                    else
+                    {<text>NO</text>}
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.IdDispaccioOutNewdisguidi)
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

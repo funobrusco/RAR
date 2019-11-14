@@ -1,0 +1,30 @@
+﻿@model RAR.ViewModel.DettaglioCodiceRaccViewModel
+<div>
+    <p align="center">
+        Immagine AR:
+    </p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Immagini presenti: @Model.countRaccomandate
+                </th>
+            </tr>
+        </thead>
+        @if (@Model.countRaccomandate > 0)
+        {
+            <tbody>
+                <tr>
+                    <td>
+                        Raccomandata: @Model.raccomandata
+                        @using (Html.BeginForm("RetrieveImages", "DettaglioDistinte", FormMethod.Post))
+                        {
+                            <input type="hidden" name="CodeRacc" value="@Model.raccomandata" />
+                            <input type="submit" name="button" value="Cerca Immagini" class="btn btn-outline-primary" />
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>

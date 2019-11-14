@@ -1,0 +1,94 @@
+﻿using System;
+
+namespace RAR.DAL.Model.CustomModel
+{
+    public partial class NewTempStoricoCartelle
+    {
+        public string CodeRaccEsaracc { get; set; }
+        public int? IdFileNameEsaracc { get; set; }
+        public int? IdDispaccioOutEsaracc { get; set; }
+        public string ProgressivoUtenteEsaracc { get; set; }
+        public DateTime? DataElabEsaracc { get; set; }
+        public DateTime? DataLoadDatiEsaracc { get; set; }
+        public string LocalitaEsaracc { get; set; }
+        public DateTime? DataNotificaEsaracc { get; set; }
+        public string DestinatarioEsaracc { get; set; }
+        public string CodeCapDestEsaracc { get; set; }
+        public string LocDestEsaracc { get; set; }
+        public string ViaDestEsaracc { get; set; }
+        public string CodiceEsitoEsaracc { get; set; }
+        public string FlagFonteEsitoEsaracc { get; set; }
+        public string CodiceMotivoEsaracc { get; set; }
+        public string FileNameArEsaracc { get; set; }
+        public string CodeOpeDeEsaracc { get; set; }
+        public string CodiceZetaDistpostel { get; set; }
+        public int? TotLettereDistpostel { get; set; }
+        public DateTime? DataLoadDistPostelDistpostel { get; set; }
+        public string NumeroDistintaDistpostel { get; set; }
+        public DateTime? DataSpedizioneDistpostel { get; set; }
+        public string FlagTipoDocDistpostel { get; set; }
+        public string GrammaturaDistpostel { get; set; }
+        public int? IdDispaccioOutNewpozzoes { get; set; }
+        public string CodiceEsitoNewpozzoes { get; set; }
+        public string FlagFonteEsitoNewpozzoes { get; set; }
+        public string FileNameArNewpozzoes { get; set; }
+        public DateTime? DataLoadDatiNewpozzoes { get; set; }
+        public DateTime? DataElabNewpozzoes { get; set; }
+        public DateTime? DataNotificaNewpozzoes { get; set; }
+        public string CodiceMotivoNewpozzoes { get; set; }
+        public string CodeOpeDeNewpozzoes { get; set; }
+        public string CodiceEsitoRendes { get; set; }
+        public string FlagFonteEsitoRendes { get; set; }
+        public string FileNameArRendes { get; set; }
+        public DateTime? DataLoadDatiRendes { get; set; }
+        public DateTime? DataElabRendes { get; set; }
+        public DateTime? DataNotificaRendes { get; set; }
+        public int? DispaccioOutRendes { get; set; }
+        public string FileNameEstrattoRendes { get; set; }
+        public DateTime? DataEstrazioneRendes { get; set; }
+        public DateTime? DataElabNewdisguidi { get; set; }
+        public string CodiceEsitoNewdisguidi { get; set; }
+        public string FlagFonteEsitoNewdisguidi { get; set; }
+        public string CodiceMotivoNewdisguidi { get; set; }
+        public string CodeOpeDeNewdisguidi { get; set; }
+        public DateTime? DataNotificaNewdisguidi { get; set; }
+        public DateTime? DataDisguidoNewdisguidi { get; set; }
+        public DateTime? DataElaborazioneNewdisguidi { get; set; }
+        public bool? ElaboratoNewdisguidi { get; set; }
+        public int? IdDispaccioOutNewdisguidi { get; set; }
+        public int? IdFileNameNewescorret { get; set; }
+        public int? IdDispaccioOutNewescorret { get; set; }
+        public string ProgressivoUtenteNewescorret { get; set; }
+        public DateTime? DataElabNewescorret { get; set; }
+        public DateTime? DataLoadDatiNewescorret { get; set; }
+        public DateTime? DataNotificaNewescorret { get; set; }
+        public string CodiceEsitoNewescorret { get; set; }
+        public string FlagFonteEsitoNewescorret { get; set; }
+        public string CodiceMotivoNewescorret { get; set; }
+        public string FileNameArNewescorret { get; set; }
+        public string CodeOpeDeNewescorret { get; set; }
+        public byte? TsNewescorret { get; set; }
+        public string CodiceAnomaliaNewescorret { get; set; }
+        public string CodiceEsitoNewestt { get; set; }
+        public string CanaleNewestt { get; set; }
+        public string FileNameArNewestt { get; set; }
+        public DateTime? DataLoadDatiNewestt { get; set; }
+        public DateTime? DataTracciaNewestt { get; set; }
+        public DateTime? DataNotificaNewestt { get; set; }
+        public string NomeFileZipNewscapoimm { get; set; }
+        public DateTime? DataArrivoFileZipNewscapoimm { get; set; }
+        public DateTime? DataEsitoNewscaimmeqt { get; set; }
+        public DateTime? DataGenerazioneFileNewinvflussimm { get; set; }
+        public string NomeFileNewinvflussimm { get; set; }
+        public string CodeRaccNlrendes { get; set; }
+        public string CodiceEsitoNlrendes { get; set; }
+        public string FlagFonteEsitoNlrendes { get; set; }
+        public string FileNameArNlrendes { get; set; }
+        public DateTime? DataLoadDatiNlrendes { get; set; }
+        public DateTime? DataElabNlrendes { get; set; }
+        public DateTime? DataNotificaNlrendes { get; set; }
+        public int? DispaccioOutNlrendes { get; set; }
+        public string FileNameEstrattoNlrendes { get; set; }
+        public DateTime? DataEstrazioneNlrendes { get; set; }
+    }
+}

@@ -1,0 +1,56 @@
+﻿@model RAR.ViewModel.StoricoCartelleViewModel
+@{
+    ViewData["Title"] = "Dettaglio Distinte";
+}
+
+<h1>Dettaglio Distinta</h1>
+
+@Html.Label("Raccomandate contenute nella distinta : ")
+<span id="idDistinta">@Model.Distinta</span>
+<br />
+
+<input type="submit" class="btn btn-primary" name="buttonExportToExcel" value="Esporta in xls" onclick="location.href='@ViewBag.UrlXlsx'" />
+
+<br />
+<br />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaccomandateInDistinta.First().CodeRacc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaccomandateInDistinta.First().FileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaccomandateInDistinta.First().DataSpedizione)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.RaccomandateInDistinta)
+        {
+            <tr>
+                <td>
+                    <div class="hero-button text-center">
+                        <form asp-controller="DettaglioDistinte" asp-action="CercaRacc1" id="sendCodeRaccInDettaglioRacc" method="post">
+                            <input asp-for="@item.CodeRacc" type="hidden" value="@item.CodeRacc" name="codeRacc" />
+                            <input type="submit" class="btn btn-outline-primary" name="buttonCerca" value="Cerca" />
+                        </form>
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodeRacc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileName)
+                </td>
+                <td>
+                    @Convert.ToDateTime(item.DataSpedizione).ToString("dd/MM/yyyy")
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

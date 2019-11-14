@@ -1,0 +1,84 @@
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.mynav_navbar {
+  overflow: hidden;
+  background-color: white;
+  /* font-family: Arial, Helvetica, sans-serif;*/
+}
+
+#navigation, .navbar .navbar-default {
+    background-image: url("../img/Slide1.png"); /* assuming img folder is one step back from css*/
+}
+
+.mynav_navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 4px 6px;
+  text-decoration: none;
+}
+
+.mynav_dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.mynav_dropdown .mynav_dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: black;
+  padding: 4px 6px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: default;
+}
+
+.mynav_navbar a:hover, .mynav_dropdown:hover .mynav_dropbtn {
+  background-color: lightgrey;
+}
+
+.mynav_dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.mynav_dropdown-content a {
+  float: none;
+  color: black;
+  padding: 2px 6px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.mynav_dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.mynav_dropdown:hover .mynav_dropdown-content {
+  display: block;
+}

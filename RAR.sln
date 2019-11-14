@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29001.49
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RAR.DAL", "RAR.DAL\RAR.DAL.csproj", "{541A854D-227B-473A-A458-70C64639CAA6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RAR.API", "RAR.API\RAR.API.csproj", "{BE38EA07-7EC7-4DB7-BCF7-583F1388CAA0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RAR.Service", "RAR.Service\RAR.Service.csproj", "{3A26F1DF-B782-4D58-9F80-D1FDD0D1383B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RAR.Client", "RAR.Client\RAR.Client.csproj", "{3036F75A-5E39-4710-A9F8-CBFB5F6A382B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RAR.WEB.MVC", "RAR.WEB.MVC\RAR.WEB.MVC.csproj", "{52100460-3AD2-488F-9F0A-13854A694F61}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RAR.ViewModel", "RAR.ViewModel\RAR.ViewModel.csproj", "{B8F707B5-5088-4AE2-A14C-7B66FECABADE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{541A854D-227B-473A-A458-70C64639CAA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{541A854D-227B-473A-A458-70C64639CAA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{541A854D-227B-473A-A458-70C64639CAA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{541A854D-227B-473A-A458-70C64639CAA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE38EA07-7EC7-4DB7-BCF7-583F1388CAA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE38EA07-7EC7-4DB7-BCF7-583F1388CAA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE38EA07-7EC7-4DB7-BCF7-583F1388CAA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE38EA07-7EC7-4DB7-BCF7-583F1388CAA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A26F1DF-B782-4D58-9F80-D1FDD0D1383B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A26F1DF-B782-4D58-9F80-D1FDD0D1383B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A26F1DF-B782-4D58-9F80-D1FDD0D1383B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A26F1DF-B782-4D58-9F80-D1FDD0D1383B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3036F75A-5E39-4710-A9F8-CBFB5F6A382B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3036F75A-5E39-4710-A9F8-CBFB5F6A382B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3036F75A-5E39-4710-A9F8-CBFB5F6A382B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3036F75A-5E39-4710-A9F8-CBFB5F6A382B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52100460-3AD2-488F-9F0A-13854A694F61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52100460-3AD2-488F-9F0A-13854A694F61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52100460-3AD2-488F-9F0A-13854A694F61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52100460-3AD2-488F-9F0A-13854A694F61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8F707B5-5088-4AE2-A14C-7B66FECABADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8F707B5-5088-4AE2-A14C-7B66FECABADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8F707B5-5088-4AE2-A14C-7B66FECABADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8F707B5-5088-4AE2-A14C-7B66FECABADE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {514883F4-AE64-4827-9369-27A8DFE2638C}
+	EndGlobalSection
+EndGlobal

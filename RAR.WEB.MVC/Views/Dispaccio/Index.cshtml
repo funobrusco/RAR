@@ -1,0 +1,252 @@
+﻿@model IEnumerable<RAR.ViewModel.DispaccioViewModel>
+
+@{
+    ViewData["Title"] = "Gestione dispacci";
+}
+
+@*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">*@
+<h2>Dispacci</h2>
+
+<div class="container">
+    <br />
+    @Html.ValidationMessage("CustomError")
+    <fieldset>
+        <legend>
+            Arrivo nuovo dispaccio
+        </legend>
+        <form asp-controller="Dispaccio" asp-action="Nuovo">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-row">
+                <div class="col-md-2">
+                    <label for="consegna" class="col-form-label">Consegna</label>
+                </div>
+                <div class="col-md-2">
+                    <select name="mittente" id="mittente" class="form-control form-control-sm">
+                        <option>Postel</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-2">
+                    <label for="DataNotifica" class="col-form-label">Data Lavorazione</label>
+                </div>
+                <div class="col-md-2">
+                    <input readonly class="form-control form-control-sm" type="date" id="DataArrivo" name="DataArrivo" data-date-format="DD MMMM YYYY" value=@DateTime.Now.ToString("yyyy-MM-dd")>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-2">
+                    <label for="CodeRacc" class="col-form-label">Cod. Dispaccio:</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" required pattern="d{12,12}" id="CodeRacc" name="CodeRacc" max="999999999999" maxlength="12" min="100000000000" minlength="12" class="form-control form-control-sm" title="12 caratteri numerici">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-2">
+                    <input type="submit" value="Nuovo" class="btn btn-primary" />
+                </div>
+            </div>
+
+            @if (@TempData["Errore"] != null)
+            {
+                <div class="form-row alert ">
+                    <div class="col-md-12 alert-danger">
+                        <p name="errorMessage">Errore - @TempData["Errore"].ToString()</p>
+                    </div>
+                </div>
+            }
+            else if (@TempData["Conferma"] != null)
+            {
+                <div class="form-row alert">
+                    <div class="col-md-12 alert-success">
+                        <p name="confirmMessage">Conferma - @TempData["Conferma"].ToString()</p>
+                    </div>
+                </div>
+            }
+        </form>
+    </fieldset>
+    <br />
+    <fieldset>
+        <legend>
+            Lista dispacci
+        </legend>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CodDispaccio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mittente)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataArrivo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataApertura)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataChiusura)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CodDispaccio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mittente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataArrivo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataApertura)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataChiusura)
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.DataApertura))
+                            {
+                                <a asp-controller="Dispaccio" asp-action="GetDettaglio" asp-route-idDispaccio="@item.Id" class="btn btn-primary btn-sm">Tracciatura</a>
+                            }
+                            @if (string.IsNullOrEmpty(item.DataApertura))
+                            {
+                                @Html.ActionLink("Apri", "ApriDispaccio", "Dispaccio", new { idDispaccio = @item.Id }, new { name = "actionApri", @class = "btn btn-success btn-sm", @idDispaccio = @item.Id })
+                                <!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModalApertura"
+                                        data-whatever="@item.Id">
+                                    Apri
+                                </button>
+                                 Modal Apertura
+
+                                                        <div class="modal fade" id="myModalApertura" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                            <div class="modal-dialog modal-sm" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title" id="myModalLabel"> Apertura dispaccio</h4>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Sei sicuro di voler aprire il dispaccio: <span><b>@item.Id</b></span>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" id="apertura-account-btn" class="btn btn-danger" dispaccio-id="@item.Id" data-dispaccio-id="@item.Id">Conferma</button>
+                                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Annulla</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>-->
+                            }
+                            @if (string.IsNullOrEmpty(item.DataChiusura) && !string.IsNullOrEmpty(item.DataApertura))
+                            {
+                                <!-- <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModalChiusura"
+                                        data-whatever="@item.Id">
+                                    Chiudi
+                                </button>-->
+
+                                //@Html.ActionLink("PROVA1", "ChiudiDispaccio", "Dispaccio", new { idDispaccio = @item.Id }, new { onclick = "return confirm('Si intende procedere con la cancellazione della cartolina ?');" })
+                                //@Html.ActionLink("PROVA1", "ChiudiDispaccio", "Dispaccio", new { idDispaccio = @item.Id }, new { data_toggle = "modal", data_target = "#myModalChiusura" })
+                                @Html.ActionLink("Chiudi", "ChiudiDispaccio", "Dispaccio", new { idDispaccio = @item.Id }, new { name = "actionChiudi", @class = "btn btn-danger btn-sm", @idDispaccio = @item.Id })
+                                /*, onclick = "return confirm('Si intende procedere con la cancellazione della cartolina ?');"*/
+                                //data-toggle="modal" data-target="#confirm-delete"
+                                <!-- Modal Chiusura -->
+                                <div class="modal fade" id="myModalChiusura" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog modal-sm" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="myModalLabel"> Chiusura dispaccio</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                Sei sicuro di voler chiudere il dispaccio: <span><b>@item.Id</b></span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" dispaccio-id="@item.Id" data-dispaccio-id="@item.Id" id="chiusura-account-btn">Conferma</button>
+                                                <button type="button" class="btn btn-info" data-dismiss="modal">Annulla</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </fieldset>
+</div>
+<div id="dialog" title="Conferma">
+    <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span><p name="confirmMessage"></p>
+</div>
+<script type="text/javascript">
+    document.getElementById("CodeRacc").oninput = function () {
+        if (this.value.length > 12) {
+            this.value = this.value.slice(0, 12);
+        }
+    }
+
+    $(document).ready(function () {
+        $("#dialog").dialog({
+            autoOpen: false,
+            modal: true,
+            resizable: false,
+            height: "auto",
+            width: 400,
+        });
+
+        $("a[name=actionChiudi]").click(function (e) {
+            e.preventDefault();
+            var targetUrl = $(this).attr("href");
+            var idDispaccio = $(this).attr("iddispaccio");
+            $("p[name=confirmMessage]").html("Si è sicuri di voler <strong>chiudere</strong> il dispaccio numero: <strong> " + idDispaccio + "</strong>?");
+            $("#dialog").dialog({
+                buttons: {
+                    "Ok": function () {
+                        window.location.href = targetUrl;
+                    },
+                    "Annulla": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $("#dialog").dialog("open");
+        });
+
+        $("a[name=actionApri]").click(function (e) {
+            e.preventDefault();
+            var targetUrl = $(this).attr("href");
+            var idDispaccio = $(this).attr("iddispaccio");
+            $("p[name=confirmMessage]").html("Si è sicuri di voler <strong>aprire</strong> il dispaccio numero: <strong> " + idDispaccio + "</strong>?");
+            $("#dialog").dialog({
+                buttons: {
+                    "Ok": function () {
+                        window.location.href = targetUrl;
+                    },
+                    "Annulla": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $("#dialog").dialog("open");
+        });
+
+
+        //  var $dialog = $("#dialog");
+        //$dialog.addClass("modal-content");
+        //$dialog.find(".ui-dialog-titlebar").addClass("modal-header").find(".ui-button").addClass("close").text("x");
+        //      $dialog.find(".ui-dialog-content").addClass("modal-body");
+    }); // end of $(document).ready
+</script>

@@ -1,0 +1,68 @@
+﻿@model RAR.ViewModel.DettaglioCodiceRaccViewModel
+
+<div>
+    <p align="center">Esito corretto e non rendicontato al Cliente :</p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.IdFileNameNewescorret)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.IdDispaccioOutNewescorret)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.ProgressivoUtenteNewescorret)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataElabNewescorret)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataLoadDatiNewescorret)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataNotificaNewescorret)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodiceEsitoNewescorret)
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.dataoperazioneNEWESCORRET)
+                </th>*@
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.IdFileNameNewescorret)
+                </td>
+                <th>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.IdDispaccioOutNewescorret)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.ProgressivoUtenteNewescorret)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataElabNewescorret)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataLoadDatiNewescorret)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataNotificaNewescorret)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodiceEsitoNewescorret)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.dataoperazioneNEWESCORRET)
+                </td>*@
+            </tr>
+        </tbody>
+    </table>
+</div>

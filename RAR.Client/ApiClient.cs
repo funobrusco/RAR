@@ -1,0 +1,103 @@
+﻿using Newtonsoft.Json;
+using RAR.ViewModel;
+using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RAR.Client
+{
+    public partial class ApiClient
+    {
+        private readonly HttpClient _httpClient;
+        private readonly string _username;
+        
+        HttpClientHandler handler;
+        private Uri BaseEndpoint { get; set; }
+
+        public ApiClient(Uri baseEndpoint, string username)
+        {
+            _username = username;
+            BaseEndpoint = baseEndpoint ?? throw new ArgumentNullException("baseEndpoint");
+            handler = new HttpClientHandler();
+            _httpClient = new HttpClient(handler);
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
+        private async Task<T> GetAsync<T>(Uri requestUrl)
+        {
+            addHeaders();
+            var response = await _httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead);
+            response.EnsureSuccessStatusCode();
+            var data = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(data);
+        }
+
+        /// <summary>
+        /// Common method for making POST calls
+        /// </summary>
+        private async Task<ResultStoredViewModel<T>> PostAsync<T>(Uri requestUrl, T content)
+        {
+            addHeaders();
+            var response = await _httpClient.PostAsync(requestUrl.ToString(), CreateHttpContent<T>(content));
+            response.EnsureSuccessStatusCode();
+            var data = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<ResultStoredViewModel<T>>(data, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            });
+        }
+        private async Task<ResultStoredViewModel<T1>> PostAsync<T1, T2>(Uri requestUrl, T2 content)
+        {
+            addHeaders();
+            var response = await _httpClient.PostAsync(requestUrl.ToString(), CreateHttpContent<T2>(content));
+            response.EnsureSuccessStatusCode();
+            var data = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<ResultStoredViewModel<T1>>(data);
+        }
+        private async Task<T> PostAsyncSimple<T>(Uri requestUrl, T content)
+        {
+            addHeaders();
+            var response = await _httpClient.PostAsync(requestUrl.ToString(), CreateHttpContent<T>(content));
+            response.EnsureSuccessStatusCode();
+            var data = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(data, new JsonSerializerSettings
+            {
+                TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All
+            });
+        }
+
+        private Uri CreateRequestUri(string relativePath, string queryString = "")
+        {
+            var endpoint = new Uri(BaseEndpoint, relativePath);
+            var uriBuilder = new UriBuilder(endpoint);
+            uriBuilder.Query = queryString;
+            return uriBuilder.Uri;
+        }
+
+        private HttpContent CreateHttpContent<T>(T content)
+        {
+            var json = JsonConvert.SerializeObject(content, MicrosoftDateFormatSettings);
+            return new StringContent(json, Encoding.UTF8, "application/json");
+        }
+
+        private static JsonSerializerSettings MicrosoftDateFormatSettings
+        {
+            get
+            {
+                return new JsonSerializerSettings
+                {
+                    DateFormatHandling = DateFormatHandling.MicrosoftDateFormat
+                };
+            }
+        }
+
+        private void addHeaders()
+        {
+            //_httpClient.DefaultRequestHeaders.Remove("userIP");
+            //_httpClient.DefaultRequestHeaders.Add("userIP", "192.168.1.1");
+            _httpClient.DefaultRequestHeaders.Add("user", _username);
+        }
+    }
+}

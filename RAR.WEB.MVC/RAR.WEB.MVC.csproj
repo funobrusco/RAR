@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <UserSecretsId>a36a1f5f-d4fe-4f6a-9f9f-f467b61669c5</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Utility\ControllerUtility.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Dispaccio\Create.cshtml" />
+    <Content Remove="Views\Dispaccio\Delete.cshtml" />
+    <Content Remove="Views\Dispaccio\Edit.cshtml" />
+    <Content Remove="Views\Dispaccio\UpdateCourseCredits.cshtml" />
+    <Content Remove="wwwroot\css\nav-menu.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\nav-menu.css" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="2.2.11" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="NonFactors.Grid.Core.Mvc6" Version="5.0.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\RAR.Client\RAR.Client.csproj" />
+    <ProjectReference Include="..\RAR.DAL\RAR.DAL.csproj" />
+    <ProjectReference Include="..\RAR.ViewModel\RAR.ViewModel.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Log\" />
+    <Folder Include="Views\UploadFile\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Views\DataPostalizzazioneRaccomandata\DataPostalizzazioneRaccomandata.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,74 @@
+﻿@model RAR.ViewModel.StoricoCartelleViewModel
+@{
+    ViewData["Title"] = "Ricerca Per Data Postalizzazione Raccomandata";
+}
+
+<h1>Ricerca Per Data Postalizzazione Raccomandata</h1>
+<br />
+<br />
+@Html.Label("Elenco distinte dal: ")
+@Model.dalGiorno
+@Html.Label(" al: ")
+@Model.alGiorno
+<br />
+@if (Model.ElencoDistinte.Any())
+{
+    <input type="submit" class="btn btn-primary" name="buttonExportToExcel" value="Esporta in xls" onclick="location.href='@ViewBag.UrlXlsx'" />
+
+    <br />
+    <br />
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(m => m.ElencoDistinte.First().numeroDistinta)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.ElencoDistinte.First().totLettere)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.ElencoDistinte.First().fileName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.ElencoDistinte.First().DataSpedizione)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ElencoDistinte)
+            {
+                var disable = (item.totLettere == 0) ? "disabled='disabled'" : string.Empty;
+                <tr>
+                    <td>
+                        <div class="hero-button text-center">
+                            <form asp-controller="StoricoCartelle" asp-action="RaccomandateInDistinta" id="myForm">
+                                <input asp-for="Distinta" type="hidden" value="@item.numeroDistinta" />
+                                <input type="submit" class="btn btn-outline-primary" name="buttonCerca" value="Cerca" @disable />
+                            </form>
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.numeroDistinta)
+                    </td>
+
+                    <th>
+                        @Html.DisplayFor(modelItem => item.totLettere)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fileName)
+                    </td>
+                    <td>
+                        @Convert.ToDateTime(item.DataSpedizione).ToString("dd/MM/yyyy")
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>La ricerca non ha restituito risultati</h3>
+}
+<a asp-controller="StoricoCartelle" asp-action="Index">Torna indietro</a>

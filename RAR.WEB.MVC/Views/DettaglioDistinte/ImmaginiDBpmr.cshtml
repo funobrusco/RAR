@@ -1,0 +1,69 @@
+﻿@model RAR.ViewModel.ImmaginiDbViewModel
+@{
+    ViewData["Title"] = "ImmaginiDB";
+}
+<h1>Immagini a DB per il codice @Model.CodeRacc</h1>
+<div>
+    <p align="center">Immagini a DB PMR :</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImgFront)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImgRetro)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NomeFileZIP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DataArrivoFileZIP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor((model => model.DataGenerazioneFile))
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Dataesito)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NomeFile)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @using (Html.BeginForm("RetrieveImgFront", "DettaglioDistinte", FormMethod.Post))
+                    {
+                        <input type="hidden" name="CodeRacc" value="@Model.CodeRacc" />
+                        <input type="submit" name="button" value="Immagine" class="btn btn-outline-primary"/>
+                    }
+                </td>
+                <td>
+                    @using (Html.BeginForm("RetrieveImgRear", "DettaglioDistinte", FormMethod.Post))
+                    {
+                        <input type="hidden" name="CodeRacc" value="@Model.CodeRacc" />
+                        <input type="submit" name="button" value="Immagine" class="btn btn-outline-primary"/>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.NomeFileZIP)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.DataArrivoFileZIP)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.DataGenerazioneFile)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Dataesito)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.NomeFile)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

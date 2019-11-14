@@ -1,0 +1,45 @@
+﻿@*@{
+        ViewBag.Title = "Upload";
+    }*@
+<h2>Caricamento degli esiti Furtati/Smarriti</h2>
+<html>
+<head>
+    <title>Caricamento degli esiti Furtati/Smarriti</title>
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>*@
+
+</head>
+<body>
+    <fieldset>
+        <legend>
+            Selezionare il file o i file da caricare:
+        </legend>
+
+        <form asp-controller="UploadFile" asp-action="UploadFiles" method="post"
+              enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="col-md-2">
+                    <input type="file" name="files" multiple id="inputFiles"  class="btn btn-outline-primary"/>
+                    <button type="submit" id="uploadFiles" class="btn btn-primary"  style="margin-top:10px;">Upload Files</button>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+    @section Scripts {
+    <script type="text/JavaScript">
+        $(document).ready(
+            function () {
+                $('button:submit').attr('disabled', true);
+                $('input:file').change(
+                    function () {
+                        if ($(this).val()) {
+                            $('button:submit').removeAttr('disabled');
+                        }
+                        else {
+                            $('button:submit').attr('disabled', true);
+                        }
+                    });
+            });
+    </script>
+    }
+</body>
+</html>

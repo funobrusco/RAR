@@ -1,0 +1,70 @@
+﻿@model RAR.ViewModel.DettaglioCodiceRaccViewModel
+
+    <div>
+        <p align="center">
+            Distinta POSTEL:
+        </p>
+        @using (Html.BeginForm("DettaglioDistinta", "StoricoCartelle", FormMethod.Post))
+        {
+            <input type="hidden" name="CodeRacc" value="@Model.raccomandata" />
+            <input type="text" name="Distinta" value="@Model.dettaglioPrimoEsitofonteEsaRacc.NumeroDistintaDistpostel" readonly />
+            <input type="submit" name="buttonSearch" value="Cerca per distinta" class="btn btn-outline-primary" />
+        }
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodiceZetaDistpostel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.TotLettereDistpostel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataLoadDistPostelDistpostel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.NumeroDistintaDistpostel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataSpedizioneDistpostel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.FlagTipoDocDistpostel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.GrammaturaDistpostel)
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodiceZetaDistpostel)
+                    </td>
+                    <th>
+                        @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.TotLettereDistpostel)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataLoadDistPostelDistpostel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.NumeroDistintaDistpostel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataSpedizioneDistpostel)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.FlagTipoDocDistpostel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.GrammaturaDistpostel)
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>

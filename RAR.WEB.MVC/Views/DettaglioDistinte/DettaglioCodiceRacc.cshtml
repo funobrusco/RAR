@@ -1,0 +1,55 @@
+﻿@model RAR.ViewModel.DettaglioCodiceRaccViewModel
+@{
+    ViewData["Title"] = "Dettaglio Raccomandata";
+}
+
+<h4>Dettaglio Raccomandata :  @Model.raccomandata</h4>
+<br />
+@if (Model.dettaglioPrimoEsitofonteEsaRacc != null)
+{
+    @using (Html.BeginForm("ExportToXls", "DettaglioDistinte", FormMethod.Post))
+    {
+        <input type="hidden" name="CodeRacc" value="@Model.raccomandata" />
+        <input type="submit" name="buttonExportToExcel" value="Esporta in xls" class="btn btn-primary" />
+    }
+    <hr />
+    <br />
+    <br />
+
+    <div>
+        <partial name="_DettaglioCodiceRacc_Image1" />
+    </div>
+    <div>
+        <partial name="_DettaglioCodiceRacc_Image2" />
+    </div>
+    <div>
+        <partial name="_DettaglioPrimoEsito" />
+    </div>
+    <div>
+        <partial name="_DistintaPostel" />
+    </div>
+    <div>
+        <partial name="_EsitiSuccessivi" />
+    </div>
+    <div>
+        <partial name="_EsitoDaTT" />
+    </div>
+    <div>
+        <partial name="_EsitoCorrettoNonRendicontato" />
+    </div>
+    <div>
+        <partial name="_DisguidiDaLavorazioneCfsm" />
+    </div>
+    <div>
+        <partial name="_EsitiRendicontatiAlCliente" />
+    </div>
+    <div>
+        <partial name="_EsitiDaRendicontareAlCliente" />
+    </div>
+}
+else
+{
+    <h3>Nessuna raccomandata con il codice indicato</h3>
+}
+
+<a asp-controller="StoricoCartelle" asp-action="Index">Torna alla maschera di ricerca</a>

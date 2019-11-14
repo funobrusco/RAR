@@ -1,0 +1,58 @@
+﻿@model RAR.ViewModel.StoricoCartelleViewModel
+@{
+    ViewData["Title"] = "Dettaglio Distinte";
+}
+
+<h1>Dettaglio Distinta</h1>
+
+@Html.Label("Raccomandate contenute nella distinta : ")
+<span id="idDistinta">@ViewData["distinta"])</span>
+<br />
+
+@using (Html.BeginForm("ExportToXls", "DettaglioDistinte", FormMethod.Post))
+{
+    <input type="hidden" name="distinta" value="@ViewData["distinta"]" />
+    <input type="submit" name="buttonExportToExcel" value="Esporta in xls" class="btn btn-primary" />
+}
+<br />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaccomandateInDistinta.First().CodeRacc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaccomandateInDistinta.First().FileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaccomandateInDistinta.First().DataSpedizione)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.RaccomandateInDistinta)
+        {
+            <tr>
+                <td></td>
+                <th>
+                    @Html.DisplayFor(modelItem => item.CodeRacc)
+                    @using (Html.BeginForm("CercaRacc1", "DettaglioDistinte", FormMethod.Post))
+                    {
+                        <input type="hidden" name="CodeRacc" value="@item.CodeRacc" />
+
+                        <input type="submit" name="button" value="Cerca" class="btn btn-primary"/>
+                    }
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataSpedizione)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
