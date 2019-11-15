@@ -3,13 +3,14 @@
     ViewData["Title"] = "Dettaglio Distinte";
 }
 
-<h1>Dettaglio Distinta</h1>
+<h4>Dettaglio Distinta</h4>
+<hr />
 
 @Html.Label("Raccomandate contenute nella distinta : ")
 <span id="idDistinta">@Model.Distinta</span>
 <br />
 
-<input type="submit" class="btn btn-primary" name="buttonExportToExcel" value="Esporta in xls" onclick="location.href='@ViewBag.UrlXlsx'" />
+<input type="submit" class="btn btn-primary btn-posta-style" name="buttonExportToExcel" value="Esporta in xls" onclick="location.href='@ViewBag.UrlXlsx'" />
 
 <br />
 <br />
@@ -37,7 +38,7 @@
                     <div class="hero-button text-center">
                         <form asp-controller="DettaglioDistinte" asp-action="CercaRacc1" id="sendCodeRaccInDettaglioRacc" method="post">
                             <input asp-for="@item.CodeRacc" type="hidden" value="@item.CodeRacc" name="codeRacc" />
-                            <input type="submit" class="btn btn-outline-primary" name="buttonCerca" value="Cerca" />
+                            <input type="submit" class="btn btn-outline-primary btn-posta-style" name="buttonCerca" value="Cerca" />
                         </form>
                     </div>
                 </td>

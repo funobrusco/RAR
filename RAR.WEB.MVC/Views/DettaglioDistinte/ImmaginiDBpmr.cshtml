@@ -2,7 +2,8 @@
 @{
     ViewData["Title"] = "ImmaginiDB";
 }
-<h1>Immagini a DB per il codice @Model.CodeRacc</h1>
+<h4>Immagini a DB per il codice @Model.CodeRacc</h4>
+<hr />
 <div>
     <p align="center">Immagini a DB PMR :</p>
     <table class="table table-striped">
@@ -37,14 +38,14 @@
                     @using (Html.BeginForm("RetrieveImgFront", "DettaglioDistinte", FormMethod.Post))
                     {
                         <input type="hidden" name="CodeRacc" value="@Model.CodeRacc" />
-                        <input type="submit" name="button" value="Immagine" class="btn btn-outline-primary"/>
+                        <input type="submit" name="button" value="Immagine" class="btn btn-outline-primary btn-posta-style"/>
                     }
                 </td>
                 <td>
                     @using (Html.BeginForm("RetrieveImgRear", "DettaglioDistinte", FormMethod.Post))
                     {
                         <input type="hidden" name="CodeRacc" value="@Model.CodeRacc" />
-                        <input type="submit" name="button" value="Immagine" class="btn btn-outline-primary"/>
+                        <input type="submit" name="button" value="Immagine" class="btn btn-outline-primary btn-posta-style"/>
                     }
                 </td>
                 <td>

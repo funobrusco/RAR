@@ -4,16 +4,15 @@
 }
 
 <h4>Dettaglio Raccomandata :  @Model.raccomandata</h4>
-<br />
+<hr />
+
 @if (Model.dettaglioPrimoEsitofonteEsaRacc != null)
 {
     @using (Html.BeginForm("ExportToXls", "DettaglioDistinte", FormMethod.Post))
     {
         <input type="hidden" name="CodeRacc" value="@Model.raccomandata" />
-        <input type="submit" name="buttonExportToExcel" value="Esporta in xls" class="btn btn-primary" />
+        <input type="submit" name="buttonExportToExcel" value="Esporta in xls" class="btn btn-primary btn-posta-style" />
     }
-    <hr />
-    <br />
     <br />
 
     <div>

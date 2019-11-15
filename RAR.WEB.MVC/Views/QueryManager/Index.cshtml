@@ -11,10 +11,10 @@
 <script src="~/js/paging.js"></script>
 <link href="~/css/mvc-grid/mvc-grid.css" rel="stylesheet">
 
-<h2>Query manager</h2>
+<h4>Query manager</h4>
+<hr />
 
 <div class="container">
-    <br />
     @if (@TempData["errore"] != null)
     {
         <div class="form-row alert ">
@@ -55,7 +55,7 @@
                 @foreach (var item in Model.Querys)
                 {
                     <tr>
-                        <td><input type="button" name="ConfermaQuery" value="Conferma" class="btn btn-sm btn-outline-success" IdQuery="@item.IdQuery" /></td>
+                        <td><input type="button" name="ConfermaQuery" value="Conferma" class="btn btn-sm btn-outline-success btn-posta-style" IdQuery="@item.IdQuery" /></td>
                         <td>
                             @Html.DisplayFor(modelItem => item.IdQuery)
                         </td>
@@ -98,7 +98,7 @@
             </div>
             <div class="form-row">
                 <div class="col-md-2">
-                    <input type="submit" id="eseguiQuery" value="Esegui" class="btn btn-primary" />
+                    <input type="submit" id="eseguiQuery" value="Esegui" class="btn btn-primary btn-posta-style" />
                 </div>
             </div>
         </form>
@@ -112,7 +112,7 @@
             //$("#QuerySQL").text("@Model.SelectedQuery.SQL");
         </script>
         var columnsName = Model.Resultset.Take(1);
-        <h3>Query: @Model.SelectedQuery.Descrizione</h3>
+        <h4>Query: @Model.SelectedQuery.Descrizione</h4>
         @(Html
         .Grid(Model.Resultset.Skip(1))
         .Build(columns =>
@@ -130,7 +130,7 @@
         )
     }
 </div>
-@*<script>
+<script>
     $(document).ready(function () {
 
         $("#fieldsetQuery").hide();
@@ -162,9 +162,9 @@
                     });
                 });
         });
-    });*@
+    });
 
-@* function SetQueryParameters(query) {
+ function SetQueryParameters(query) {
             const regex = /\$#(.+?)\#\$/gm;
 
             $("#divParameters").html("");
@@ -191,7 +191,7 @@
                 }
             }
         }
-    </script> *@
+    </script> 
 <script src="~/js/mvc-grid/mvc-grid.js"></script>
 <script>
     [].forEach.call(document.getElementsByClassName('mvc-grid'), function (element) {

@@ -5,10 +5,10 @@
 }
 @*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
 @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">*@
-<h1>Tracciatura dispaccio @ViewData["CodDispaccio"]</h1>
+<h4>Tracciatura dispaccio @ViewData["CodDispaccio"]</h4>
+<hr />
 <div>
-    <h4>Dettaglio tracciatura</h4>
-    <hr />
+    <h5>Dettaglio tracciatura</h5>
     @Html.ValidationMessage("CustomError")
     <fieldset>
         <legend>
@@ -53,7 +53,7 @@
             <div class="form-row">
                 <div class="col-md-2">
                     <input type="hidden" asp-for="dispaccio.Id" name="IdDispaccioIn" asp-short-name="true" />
-                    <input type="submit" value="Nuovo" class="btn btn-primary" />
+                    <input type="submit" value="Nuovo" class="btn btn-primary btn-posta-style" />
                 </div>
             </div>
             @if (@TempData["Errore"] != null)
@@ -124,7 +124,7 @@
                                 @*  @Html.ActionLink("Cancella", "Cancella", "Cartolina", new { codeRacc = @item.CodeRacc, idDispaccio = @item.IdDispaccioIn }, new { onclick = "return confirm('Si intende procedere con la cancellazione della cartolina " + @item.CodeRacc + "?');" })
                                     @Html.ActionLink("Cancella", "Cancella", "Cartolina", new { codeRacc = @item.CodeRacc, idDispaccio = @item.IdDispaccioIn }, new { onclick = "return messaggio('Si intende procedere con la cancellazione della cartolina " + @item.CodeRacc + "?','" + @item.CodeRacc + "');" })
                                 *@
-                                @Html.ActionLink("Cancella", "Cancella", "Cartolina", new { CodeRacc = @item.CodeRacc, idDispaccio = @item.IdDispaccioIn }, new { name = "actionCancella", @class = "btn btn-danger btn-sm", CodeRacc = @item.CodeRacc })
+                                @Html.ActionLink("Cancella", "Cancella", "Cartolina", new { CodeRacc = @item.CodeRacc, idDispaccio = @item.IdDispaccioIn }, new { name = "actionCancella", @class = "btn btn-danger btn-sm btn-posta-style", CodeRacc = @item.CodeRacc })
 
                         </tr>
                     }

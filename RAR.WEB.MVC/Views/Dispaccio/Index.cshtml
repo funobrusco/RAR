@@ -6,10 +6,10 @@
 
 @*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
 @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">*@
-<h2>Dispacci</h2>
+<h4>Dispacci</h4>
+<hr />
 
 <div class="container">
-    <br />
     @Html.ValidationMessage("CustomError")
     <fieldset>
         <legend>
@@ -45,7 +45,7 @@
             </div>
             <div class="form-row">
                 <div class="col-md-2">
-                    <input type="submit" value="Nuovo" class="btn btn-primary" />
+                    <input type="submit" value="Nuovo" class="btn btn-primary btn-posta-style" />
                 </div>
             </div>
 
@@ -121,40 +121,40 @@
                         <td>
                             @if (!string.IsNullOrEmpty(item.DataApertura))
                             {
-                                <a asp-controller="Dispaccio" asp-action="GetDettaglio" asp-route-idDispaccio="@item.Id" class="btn btn-primary btn-sm">Tracciatura</a>
+                                <a asp-controller="Dispaccio" asp-action="GetDettaglio" asp-route-idDispaccio="@item.Id" class="btn btn-primary btn-sm btn-posta-style">Tracciatura</a>
                             }
                             @if (string.IsNullOrEmpty(item.DataApertura))
                             {
-                                @Html.ActionLink("Apri", "ApriDispaccio", "Dispaccio", new { idDispaccio = @item.Id }, new { name = "actionApri", @class = "btn btn-success btn-sm", @idDispaccio = @item.Id })
-                                <!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModalApertura"
-                                        data-whatever="@item.Id">
-                                    Apri
-                                </button>
-                                 Modal Apertura
+                                @Html.ActionLink("Apri", "ApriDispaccio", "Dispaccio", new { idDispaccio = @item.Id }, new { name = "actionApri", @class = "btn btn-success btn-sm btn-posta-style", @idDispaccio = @item.Id })
+                                <!--<button type="button" class="btn btn-info btn-sm btn-posta-style" data-toggle="modal" data-target="#myModalApertura"
+                data-whatever="@item.Id">
+            Apri
+        </button>
+         Modal Apertura
 
-                                                        <div class="modal fade" id="myModalApertura" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                                            <div class="modal-dialog modal-sm" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h4 class="modal-title" id="myModalLabel"> Apertura dispaccio</h4>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        Sei sicuro di voler aprire il dispaccio: <span><b>@item.Id</b></span>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" id="apertura-account-btn" class="btn btn-danger" dispaccio-id="@item.Id" data-dispaccio-id="@item.Id">Conferma</button>
-                                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Annulla</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>-->
+                                <div class="modal fade" id="myModalApertura" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog modal-sm" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="myModalLabel"> Apertura dispaccio</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                Sei sicuro di voler aprire il dispaccio: <span><b>@item.Id</b></span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" id="apertura-account-btn" class="btn btn-danger btn-posta-style" dispaccio-id="@item.Id" data-dispaccio-id="@item.Id">Conferma</button>
+                                                <button type="button" class="btn btn-info btn-posta-style" data-dismiss="modal">Annulla</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>-->
                             }
                             @if (string.IsNullOrEmpty(item.DataChiusura) && !string.IsNullOrEmpty(item.DataApertura))
                             {
-                                <!-- <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModalChiusura"
-                                        data-whatever="@item.Id">
-                                    Chiudi
-                                </button>-->
+                                <!-- <button type="button" class="btn btn-info btn-sm btn-posta-style" data-toggle="modal" data-target="#myModalChiusura"
+                data-whatever="@item.Id">
+            Chiudi
+        </button>-->
 
                                 //@Html.ActionLink("PROVA1", "ChiudiDispaccio", "Dispaccio", new { idDispaccio = @item.Id }, new { onclick = "return confirm('Si intende procedere con la cancellazione della cartolina ?');" })
                                 //@Html.ActionLink("PROVA1", "ChiudiDispaccio", "Dispaccio", new { idDispaccio = @item.Id }, new { data_toggle = "modal", data_target = "#myModalChiusura" })
@@ -172,8 +172,8 @@
                                                 Sei sicuro di voler chiudere il dispaccio: <span><b>@item.Id</b></span>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" dispaccio-id="@item.Id" data-dispaccio-id="@item.Id" id="chiusura-account-btn">Conferma</button>
-                                                <button type="button" class="btn btn-info" data-dismiss="modal">Annulla</button>
+                                                <button type="button" class="btn btn-danger btn-posta-style" dispaccio-id="@item.Id" data-dispaccio-id="@item.Id" id="chiusura-account-btn">Conferma</button>
+                                                <button type="button" class="btn btn-info btn-posta-style" data-dismiss="modal">Annulla</button>
                                             </div>
                                         </div>
                                     </div>

@@ -3,7 +3,8 @@
     ViewData["Title"] = "Dettaglio Distinte";
 }
 
-<h1>Dettaglio Distinta</h1>
+<h4>Dettaglio Distinta</h4>
+<hr />
 
 @Html.Label("Raccomandate contenute nella distinta : ")
 <span id="idDistinta">@ViewData["distinta"])</span>
@@ -12,7 +13,7 @@
 @using (Html.BeginForm("ExportToXls", "DettaglioDistinte", FormMethod.Post))
 {
     <input type="hidden" name="distinta" value="@ViewData["distinta"]" />
-    <input type="submit" name="buttonExportToExcel" value="Esporta in xls" class="btn btn-primary" />
+    <input type="submit" name="buttonExportToExcel" value="Esporta in xls" class="btn btn-primary btn-posta-style" />
 }
 <br />
 <table class="table table-striped">
@@ -43,7 +44,7 @@
                     {
                         <input type="hidden" name="CodeRacc" value="@item.CodeRacc" />
 
-                        <input type="submit" name="button" value="Cerca" class="btn btn-primary"/>
+                        <input type="submit" name="button" value="Cerca" class="btn btn-primary btn-posta-style"/>
                     }
                 </th>
                 <td>

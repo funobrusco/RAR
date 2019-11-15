@@ -3,9 +3,9 @@
     ViewData["Title"] = "Ricerca Per Data Postalizzazione Raccomandata";
 }
 
-<h1>Ricerca Per Data Postalizzazione Raccomandata</h1>
-<br />
-<br />
+<h4>Ricerca Per Data Postalizzazione Raccomandata</h4>
+<hr />
+
 @Html.Label("Elenco distinte dal: ")
 @Model.dalGiorno
 @Html.Label(" al: ")
@@ -13,7 +13,7 @@
 <br />
 @if (Model.ElencoDistinte.Any())
 {
-    <input type="submit" class="btn btn-primary" name="buttonExportToExcel" value="Esporta in xls" onclick="location.href='@ViewBag.UrlXlsx'" />
+    <input type="submit" class="btn btn-primary btn-posta-style" name="buttonExportToExcel" value="Esporta in xls" onclick="location.href='@ViewBag.UrlXlsx'" />
 
     <br />
     <br />
@@ -45,7 +45,7 @@
                         <div class="hero-button text-center">
                             <form asp-controller="StoricoCartelle" asp-action="RaccomandateInDistinta" id="myForm">
                                 <input asp-for="Distinta" type="hidden" value="@item.numeroDistinta" />
-                                <input type="submit" class="btn btn-outline-primary" name="buttonCerca" value="Cerca" @disable />
+                                <input type="submit" class="btn btn-outline-primary btn-posta-style" name="buttonCerca" value="Cerca" @disable />
                             </form>
                         </div>
                     </td>
