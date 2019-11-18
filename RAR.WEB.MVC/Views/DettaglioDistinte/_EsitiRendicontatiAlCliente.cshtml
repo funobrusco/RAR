@@ -1,8 +1,9 @@
 ﻿@model RAR.ViewModel.DettaglioCodiceRaccViewModel
 
 <div>
-    <p align="center">Esiti rendicontati al Cliente :</p>
-
+    <p>
+        <h6 style="text-align:center; color:navy;">Esiti rendicontati al Cliente:</h6>
+    </p>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -22,7 +23,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataElabRendes)
                 </th>
-               
+
                 <th>
                     @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataNotificaRendes)
                 </th>

@@ -1,7 +1,9 @@
 ﻿@model RAR.ViewModel.DettaglioCodiceRaccViewModel
 
 <div>
-    <p align="center">Disguidi da lavorazione CFSM :</p>
+    <p>
+        <h6 style="text-align:center; color:navy;">Disguidi da lavorazione CFSM:</h6>
+    </p>
 
     <table class="table table-striped">
         <thead>
@@ -75,8 +77,8 @@
                     {
                         @if (Model.dettaglioPrimoEsitofonteEsaRacc.ElaboratoNewdisguidi == true)
                         {<text>SI</text>}
-                        else
-                             {<text>NO</text>}
+                    else
+                    {<text>NO</text>}
                     }
                     else
                     {<text>NO</text>}

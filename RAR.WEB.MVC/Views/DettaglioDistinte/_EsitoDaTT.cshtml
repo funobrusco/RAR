@@ -1,55 +1,56 @@
 ﻿@model RAR.ViewModel.DettaglioCodiceRaccViewModel
 
 <div>
-    <p align="center">
-        Esito da T&T:</p>
-        <table class="table table-striped">
-            <thead>
-                <tr>
+    <p>
+        <h6 style="text-align:center; color:navy;">Esito da T&T:</h6>
+    </p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
 
-                    <th>
-                        @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodiceEsitoNewestt)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CanaleNewestt)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.FileNameArNewestt)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataLoadDatiNewestt)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataTracciaNewestt)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataNotificaNewestt)
-                    </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodiceEsitoNewestt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CanaleNewestt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.FileNameArNewestt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataLoadDatiNewestt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataTracciaNewestt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataNotificaNewestt)
+                </th>
 
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodiceEsitoNewestt)
-                    </td>
-                    <th>
-                        @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CanaleNewestt)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.FileNameArNewestt)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataLoadDatiNewestt)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataTracciaNewestt)
-                    </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CodiceEsitoNewestt)
+                </td>
+                <th>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.CanaleNewestt)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.FileNameArNewestt)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataLoadDatiNewestt)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataTracciaNewestt)
+                </td>
 
-                    <td>
-                        @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataNotificaNewestt)
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                <td>
+                    @Html.DisplayFor(model => model.dettaglioPrimoEsitofonteEsaRacc.DataNotificaNewestt)
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
