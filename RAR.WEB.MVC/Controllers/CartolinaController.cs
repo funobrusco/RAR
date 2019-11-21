@@ -13,7 +13,7 @@ namespace RAR.WEB.MVC.Controllers
     public class CartolinaController : CommonController
     {
 
-        public CartolinaController(IOptions<RARSettings> app, IConfiguration configuration, Microsoft.Extensions.Logging.ILogger<CartolinaController> logger, 
+        public CartolinaController(IOptions<RARSettings> app, IConfiguration configuration, Microsoft.Extensions.Logging.ILogger<CartolinaController> logger,
             IHostingEnvironment hostingEnvironment, IHttpContextAccessor httpContextAccessor)
             : base(app, configuration, logger, hostingEnvironment, httpContextAccessor)
         {
@@ -43,15 +43,22 @@ namespace RAR.WEB.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Nuova([Bind("CodeRacc, DataNotifica, CodiceTipoConsegna, IdDispaccioIn")] NewCartolineDispaccioIn nuovaCartolina)
         {
-            nuovaCartolina.UsrTracciatura = user;
-            var result = await ApiClientFactory.Instance.NuovaCartolina(nuovaCartolina);
+            try
+            {
+                nuovaCartolina.UsrTracciatura = ApplicationSettings.Username;
+                var result = await ApiClientFactory.Instance.NuovaCartolina(nuovaCartolina);
 
-            if (result.Errore())
-                TempData["Errore"] = string.Format("Salvataggio cartolina non andata a buon fine: {0}", result.MessaggioErrore);
-            else
-                TempData["Conferma"] = string.Format("Salvataggio cartolina {0} eseguita correttamente", result.Entita.Id);
+                if (result.Errore())
+                    TempData["Errore"] = string.Format("Salvataggio cartolina non andata a buon fine: {0}", result.MessaggioErrore);
+                else
+                    TempData["Conferma"] = string.Format("Salvataggio cartolina {0} eseguita correttamente", result.Entita.Id);
 
-            return await RicaricaDettaglio(nuovaCartolina.IdDispaccioIn);
+                return await RicaricaDettaglio(nuovaCartolina.IdDispaccioIn);
+            }
+            catch (Exception e)
+            {
+                return Error(e.Message);
+            }
         }
 
 

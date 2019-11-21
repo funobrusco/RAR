@@ -21,6 +21,8 @@ namespace RAR.Client
             _username = username;
             BaseEndpoint = baseEndpoint ?? throw new ArgumentNullException("baseEndpoint");
             handler = new HttpClientHandler();
+            // bypass invalid SSL certificate in .net core 
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
             _httpClient = new HttpClient(handler);
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

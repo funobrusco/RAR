@@ -21,7 +21,7 @@ namespace RAR.WEB.MVC.Controllers
         {
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View("Index");
         }
@@ -86,7 +86,7 @@ namespace RAR.WEB.MVC.Controllers
                     // al momento escluso dal progetto
                 }
             }
-            return await Index();
+            return Index();
         }
 
         public async Task<IActionResult> RaccomandateInDistinta(StoricoCartelleViewModel filtroRicerca)

@@ -1,36 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RAR.WEB.MVC.Models;
 using RAR.WEB.MVC.Models.UploadFile;
 using RAR.WEB.MVC.Utility;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace RAR.WEB.MVC.Controllers
 {
-    public class UploadFileController : Controller
+    public class UploadFileController : CommonController
     {
         private readonly IFileProvider _fileProvider;
-        private readonly ILogger _logger;
+        private readonly ILogger _loggerUpload;
         private readonly string _uploadFolder;
         private readonly string _outputFolder;
         private readonly string _baseAddress;
-        private readonly IConfiguration _configuration;
+        //private readonly IConfiguration _configuration;
         //private List<string> filenamesList;
 
 
-        public UploadFileController(IFileProvider fileProvider, IConfiguration configuration, ILogger<UploadFileController> logger)
+        public UploadFileController(IOptions<RARSettings> app, IConfiguration configuration, IHttpContextAccessor httpContextAccessor,
+            IHostingEnvironment hostingEnvironment, IFileProvider fileProvider, ILogger<UploadFileController> logger)
+            : base(app, configuration, logger, hostingEnvironment, httpContextAccessor)
         {
             _fileProvider = fileProvider;
-            _configuration = configuration;
-            _logger = logger;
+            //_configuration = configuration;
+            _loggerUpload = logger;
 
             _uploadFolder = _configuration["UploadFolder"];
             _outputFolder = _configuration["OutputFolder"];
@@ -42,7 +47,7 @@ namespace RAR.WEB.MVC.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Exception trying to create upload folder: " + ex.Message);
+                _loggerUpload.LogError("Exception trying to create upload folder: " + ex.Message);
             }
         }
 
@@ -57,62 +62,77 @@ namespace RAR.WEB.MVC.Controllers
         {
             try
             {
-                if (files != null && files.Count > 0)
+                if (files != null && files.Any())
                 {
-                    using (var client = new HttpClient())
+                    using (var handler = new HttpClientHandler())
                     {
-                        try
+                        handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                        using (var client = new HttpClient(handler))
                         {
-                            var model = new FilesViewModel();
-                            MultipartFormDataContent multiContent = new MultipartFormDataContent();
-
-                            foreach (var formfile in files)
+                            try
                             {
-                                client.BaseAddress = new Uri(_baseAddress);
-                                byte[] data;
-                                using (var br = new BinaryReader(formfile.OpenReadStream()))
-                                    data = br.ReadBytes((int)formfile.OpenReadStream().Length);
-                                ByteArrayContent bytes = new ByteArrayContent(data);
+                                var model = new FilesViewModel();
+                                MultipartFormDataContent multiContent = new MultipartFormDataContent();
 
-                                multiContent.Add(bytes, "file", formfile.FileName);
-                                model.Files.Add(new FileDetails { Name = formfile.FileName });
+                                foreach (var formfile in files)
+                                {
+                                    client.BaseAddress = new Uri(_baseAddress);
+                                    byte[] data;
+                                    using (var br = new BinaryReader(formfile.OpenReadStream()))
+                                        data = br.ReadBytes((int)formfile.OpenReadStream().Length);
+                                    ByteArrayContent bytes = new ByteArrayContent(data);
+
+                                    multiContent.Add(bytes, "file", formfile.FileName);
+                                    model.Files.Add(new FileDetails { Name = formfile.FileName });
+                                }
+                                var result = await client.PostAsync("LoadMissing/UploadFiles", multiContent);
+
+                                LoadReport dictionaryFiles = JsonConvert.DeserializeObject<LoadReport>(await result.Content.ReadAsStringAsync());
+                                return dictionaryFiles.dictionaryOfFiles.Count > 0 ? View("Files", dictionaryFiles) : View("NoFilesUploaded");
                             }
-                            var result = await client.PostAsync("LoadMissing/UploadFiles", multiContent);
-
-                            LoadReport dictionaryFiles = JsonConvert.DeserializeObject<LoadReport>(await result.Content.ReadAsStringAsync());
-                            return dictionaryFiles.dictionaryOfFiles.Count > 0 ? View("Files", dictionaryFiles) : View("NoFilesUploaded");
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger.LogInformation("Exception in upload files: " + ex.Message);
-                            return StatusCode(500); // 500 generic server error
+                            catch (Exception ex)
+                            {
+                                _loggerUpload.LogError("UploadFiles Exception in upload files: " + ex.ToString());
+                                return StatusCode(500); // 500 generic server error
+                            }
                         }
                     }
                 }
-                _logger.LogInformation("Error 400 : Bad request.");
+                _loggerUpload.LogError("Error 400 : Bad request.");
                 return View("NoFilesUploaded"); // 400  bad request
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                _logger.LogInformation("Error 500 : Generic server error.");
+                _loggerUpload.LogError("Error 500 : Generic server error: " + ex.ToString());
                 return StatusCode(500); // 500  generic server error
-
             }
         }
 
         [HttpGet("AggiornaDatiAsync")]
         public async Task<IActionResult> AggiornaDatiAsync()
         {
-            Outcome response = new Outcome();
-            // call other method in API 
-            using (var client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri(_baseAddress);
-                var result = await client.GetAsync("LoadMissing/AggiornaRacc");
-                response.Response = (result.Content.ReadAsStringAsync().Result);
-
+                Outcome response = new Outcome();
+                // call other method in API 
+                using (var handler = new HttpClientHandler())
+                {
+                    handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                    using (var client = new HttpClient(handler))
+                    {
+                        {
+                            client.BaseAddress = new Uri(_baseAddress);
+                            var result = await client.GetAsync("LoadMissing/AggiornaRacc");
+                            response.Response = (result.Content.ReadAsStringAsync().Result);
+                        }
+                    }
+                }
+                return View("Outcome", response);
             }
-            return View("Outcome", response);
+            catch (Exception e)
+            {
+                return Error(e.ToString());
+            }
         }
     }
 }

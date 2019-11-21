@@ -33,23 +33,23 @@ namespace RAR.API.Controllers
         private readonly string _lostFolder;
         private readonly string _sharedOutputFolder;
         private readonly string _hostPath;
-        private readonly int    _timeout;
+        private readonly int _timeout;
         LoadReport _dictFile;
         // Inject dependencies in controller
         public LoadMissingController(RARContext repositoryContext, IConfiguration configuration, ILogger<LoadMissingController> logger, IHostingEnvironment hostingEnvironment)
           : base(repositoryContext, configuration, logger, hostingEnvironment)
         {
-           
-            _outputNames  = new List<string>();
+
+            _outputNames = new List<string>();
             _outputFolder = _configuration["OutputFolder"];
             _uploadFolder = _configuration["UploadFolder"];
-            _lostFolder   = _configuration["Lost"];
+            _lostFolder = _configuration["Lost"];
             //_baseAddress = ApplicationSettings.WebApiUrl;
             _fileExtensionAllowedToUpload = _configuration["FileExtensionAllowedToUpload"].ToLower();
             _sharedOutputFolder = _configuration["SharedOutputFolder"];
             _hostPath = (_sharedOutputFolder.Split("\\"))[0];
             // try to retrive timeout for appsettings
-            bool conversion = Int32.TryParse(_configuration["Timeout"],out _timeout);
+            bool conversion = Int32.TryParse(_configuration["Timeout"], out _timeout);
             // if dont find any timeout definied set it to 15 seconds
             if (!conversion) _timeout = 15000;
         }
@@ -110,9 +110,10 @@ namespace RAR.API.Controllers
                 ReportFile.CloseFile();
                 _logger.LogInformation("Esiti recuperati correttamente");
                 //return Content(JsonConvert.SerializeObject(new { messaggio = "Esiti recuperati correttamente", avviso = "Creati files di riepilogo in " + _outputFolder }));
-           
+
                 CopyOutcomesFile2SharedFolder(outcomesFilename, outputFileName);
-                if (Directory.Exists(@"\\"+_sharedOutputFolder)) {
+                if (Directory.Exists(@"\\" + _sharedOutputFolder))
+                {
                     return Content(new String("Esiti recuperati correttamente.\n Creati files di riepilogo in : " + _sharedOutputFolder));
                 }
                 else return Content(new String("Esiti recuperati correttamente.\n Creati files di riepilogo."));
@@ -138,15 +139,14 @@ namespace RAR.API.Controllers
                 {
                     CopyLogErrorFile2SharedFolder(nomefileErr);
                 }
-               
             }
         }
 
         private void CopyOutcomesFile2SharedFolder(string outcomesFilename, string outputFileName)
         {
             //copy scarti_update file into _sharedOutputFolder
-           
-            var machinePingable = PingTest.PingHost(_hostPath, _logger,_timeout);
+
+            var machinePingable = PingTest.PingHost(_hostPath, _logger, _timeout);
             if (machinePingable)
             {
                 if (Directory.Exists(@"\\" + _sharedOutputFolder))
@@ -173,26 +173,26 @@ namespace RAR.API.Controllers
         {
             //copy log_error file into _sharedOutputFolder
             if (String.IsNullOrEmpty(nomefileErr)) return;
-            var machinePingable = PingTest.PingHost(_hostPath, _logger,_timeout);
-            if (machinePingable)
+            //var machinePingable = PingTest.PingHost(_hostPath, _logger,_timeout);
+            //if (machinePingable)
+            //{
+            if (Directory.Exists(@"\\" + _sharedOutputFolder))
             {
-                if (Directory.Exists(@"\\" + _sharedOutputFolder))
+                if (Directory.Exists(Path.Combine(@"\\" + _sharedOutputFolder, _lostFolder)))
                 {
-                    if (Directory.Exists(Path.Combine(@"\\" + _sharedOutputFolder, _lostFolder)))
-                    {
-                        _logger.LogInformation($"copy {nomefileErr} file into {_sharedOutputFolder}");
-                        System.IO.File.Copy(nomefileErr, @"\\" + _sharedOutputFolder + @"\" + nomefileErr);
-                    }
-                }
-                else
-                {
-                    _logger.LogError("Remote folder: " + @"\\" + _sharedOutputFolder + " not found");
+                    _logger.LogInformation($"copy {nomefileErr} file into {_sharedOutputFolder}");
+                    System.IO.File.Copy(nomefileErr, @"\\" + _sharedOutputFolder + @"\" + nomefileErr);
                 }
             }
             else
             {
-                _logger.LogError($"copy {nomefileErr} file into {_sharedOutputFolder} failed! Remote computer: {_hostPath} not found");
+                _logger.LogError("Remote folder: " + @"\\" + _sharedOutputFolder + " not found");
             }
+            //}
+            //else
+            //{
+            //    _logger.LogError($"copy {nomefileErr} file into {_sharedOutputFolder} failed! Remote computer: {_hostPath} not found");
+            //}
         }
 
         [HttpPost("UploadFiles")]
@@ -292,7 +292,7 @@ namespace RAR.API.Controllers
                     ReportFile.CloseFile();
 
                     CopyLogErrorFile2SharedFolder(fileName);
-                   
+
                 }
             }
             // return all filename generated included file of errors
@@ -345,7 +345,7 @@ namespace RAR.API.Controllers
                 // save temp file for retrieve report
                 pathFile = _outputFolder + @"\" + tmpFilename;
                 System.IO.File.WriteAllText(pathFile, strResponse.ToString());
-                CopyInSharedFolder(pathFile,tmpFilename);
+                CopyInSharedFolder(pathFile, tmpFilename);
             }
             catch (Exception ex)
             {
@@ -375,10 +375,10 @@ namespace RAR.API.Controllers
             Directory.CreateDirectory(pathReportFile.ToString());
             // Append final 
             //var filenameWithOutcomesLoad= Path.GetFileName(fileName)).Append("-SCARTI_LOAD_").Append( Guid.NewGuid().ToString("N");
- 
-             pathReportFile.Append( Path.GetFileName(fileName)).Append("-SCARTI_LOAD_").Append( (Guid.NewGuid().ToString("N")) ).Append(".TXT");
-             if (pathReportFile.Length > maxPathLenght) // truncate filename if own lenght is over the max path lenght of OS
-                 pathReportFile = new StringBuilder( pathReportFile.ToString().Substring(0, maxPathLenght)).Append(".txt");
+
+            pathReportFile.Append(Path.GetFileName(fileName)).Append("-SCARTI_LOAD_").Append((Guid.NewGuid().ToString("N"))).Append(".TXT");
+            if (pathReportFile.Length > maxPathLenght) // truncate filename if own lenght is over the max path lenght of OS
+                pathReportFile = new StringBuilder(pathReportFile.ToString().Substring(0, maxPathLenght)).Append(".txt");
             // Open for write file esitati
             ReportFile.InitFile(pathReportFile.ToString());  // fileEsistati =Helper.WriteReportFile(pathReportFile);
             string reportFileName = Path.GetFileName(pathReportFile.ToString());
@@ -406,17 +406,17 @@ namespace RAR.API.Controllers
                 _logger.LogInformation("Try to parse document");
                 ParseDocument(connectionString, reader, fileName, _logger);
                 _logger.LogInformation("Copy document in sharedFolder");
-              
+
             } // end using
             return (reportFileName);
         }
 
         //copy scarti_load file into _sharedOutputFolder
-        private void CopyInSharedFolder(string pathFileName,string fileName)
+        private void CopyInSharedFolder(string pathFileName, string fileName)
         {
             //check if the machine contains the shared folder is reachable
             //var hostPath = _sharedOutputFolder.Split("\\");
-            var machinePingable = PingTest.PingHost(_hostPath,_logger,_timeout);
+            var machinePingable = PingTest.PingHost(_hostPath, _logger, _timeout);
 
             var pathReportFile = new StringBuilder(_configuration["PathReportFile"]).Append(@"\").Append(@"\");
             pathReportFile.Append(Path.GetFileName(fileName)).Append("-SCARTI_LOAD_").Append(Guid.NewGuid()).Append(".TXT");
@@ -426,7 +426,7 @@ namespace RAR.API.Controllers
                 if (Directory.Exists(@"\\" + _sharedOutputFolder))
                 {
                     _logger.LogInformation("copy " + fileName + $" file into {_sharedOutputFolder}");
-                    System.IO.File.Copy(pathFileName, Path.Combine(@"\\"+_sharedOutputFolder, _lostFolder)+@"\\"+ fileName);
+                    System.IO.File.Copy(pathFileName, Path.Combine(@"\\" + _sharedOutputFolder, _lostFolder) + @"\\" + fileName);
                 }
                 else
                 {
@@ -649,10 +649,10 @@ namespace RAR.API.Controllers
 
                     command.CommandText = "SP_LoadSmarriti_CodiceInvioEsistAggiornaDataDenuncia";
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add("@sendCode", SqlDbType.VarChar).Value = sendCode; 
+                    command.Parameters.Add("@sendCode", SqlDbType.VarChar).Value = sendCode;
                     command.Parameters.Add("@outcomeDate", SqlDbType.SmallDateTime).Value = outcomeDate;
-                    command.Parameters.Add("@outcome", SqlDbType.VarChar).Value = outcome; 
-                    command.Parameters.Add("@filename", SqlDbType.VarChar).Value = filename; 
+                    command.Parameters.Add("@outcome", SqlDbType.VarChar).Value = outcome;
+                    command.Parameters.Add("@filename", SqlDbType.VarChar).Value = filename;
                     connection.Open();
                     command.ExecuteNonQuery();
                     //ts.WriteLine str_code &"  inserito nuovamente perchè già presente in CODICI_SMARRITI con data denuncia diversa"

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Logging;
 using System.IO;
 
 namespace RAR.WEB.MVC
@@ -20,7 +21,7 @@ namespace RAR.WEB.MVC
                .Build();
             
             UploadFolder = Configuration["UploadFolder"];
-            var result = Directory.CreateDirectory(UploadFolder);
+            Directory.CreateDirectory(UploadFolder);
         }
 
         public IConfiguration Configuration { get; }
@@ -29,11 +30,6 @@ namespace RAR.WEB.MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.Configure<CookiePolicyOptions>(options =>
-            //{
-            //    options.CheckConsentNeeded = context => false;
-            //    options.MinimumSameSitePolicy = SameSiteMode.None;
-            //});
             //services.Configure<CookiePolicyOptions>(options =>
             //{
             //    options.CheckConsentNeeded = context => true;
@@ -52,8 +48,9 @@ namespace RAR.WEB.MVC
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddLog4Net();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

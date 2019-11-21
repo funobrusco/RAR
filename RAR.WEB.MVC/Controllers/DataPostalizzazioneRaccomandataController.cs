@@ -45,25 +45,36 @@ namespace RAR.WEB.MVC.Controllers
         // Export to excel file recall webapi
         public async Task<IActionResult> ExportToXls(DateTime dalGiorno, DateTime alGiorno)
         {
-            using (var client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
-                //var result = await client.GetAsync("StoricoCartelle/RicercaPerDataPostalizzazioneRaccomadataXLS/" + dalGiorno + "&"+ alGiorno);
-                //string.format("api/products/id={0}&type={1}", param.Id.Value, param.Id.Type)
-                //var requestUri = new Uri();
+                using (var handler = new HttpClientHandler())
+                {
+                    handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                    using (var client = new HttpClient(handler))
+                    {
+                        client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
+                        //var result = await client.GetAsync("StoricoCartelle/RicercaPerDataPostalizzazioneRaccomadataXLS/" + dalGiorno + "&"+ alGiorno);
+                        //string.format("api/products/id={0}&type={1}", param.Id.Value, param.Id.Type)
+                        //var requestUri = new Uri();
 
-                var url = "StoricoCartelle/RicercaPerDataPostalizzazioneRaccomadataXLS/" + dalGiorno.ToString("yyyy-MM-dd") + "/" + alGiorno.ToString("yyyy-MM-dd");
-                var result = await client.GetAsync(String.Format("StoricoCartelle/RicercaPerDataPostalizzazioneRaccomadataXLS/" + dalGiorno.ToString("yyyy-MM-dd") + "/" + alGiorno.ToString("yyyy-MM-dd")));
+                        var url = "StoricoCartelle/RicercaPerDataPostalizzazioneRaccomadataXLS/" + dalGiorno.ToString("yyyy-MM-dd") + "/" + alGiorno.ToString("yyyy-MM-dd");
+                        var result = await client.GetAsync(String.Format("StoricoCartelle/RicercaPerDataPostalizzazioneRaccomadataXLS/" + dalGiorno.ToString("yyyy-MM-dd") + "/" + alGiorno.ToString("yyyy-MM-dd")));
 
-                if (result.StatusCode != HttpStatusCode.OK)
-                    return BadRequest("Errore durante la generazione del file excel.");
+                        if (result.StatusCode != HttpStatusCode.OK)
+                            return BadRequest("Errore durante la generazione del file excel.");
 
-                return File(result.Content.ReadAsStreamAsync().Result, result.Content.Headers.ContentType.ToString());
+                        return File(result.Content.ReadAsStreamAsync().Result, result.Content.Headers.ContentType.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.ToString());
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Search(string distinta)
+        public IActionResult Search(string distinta)
         {
             return (RedirectToAction("Index", "DettaglioDistinte", new { distinta }));
         }

@@ -18,28 +18,33 @@ namespace RAR.WEB.MVC.Controllers
 {
     public class DettaglioDistinteController : CommonController
     {
-        public DettaglioDistinteController(IOptions<RARSettings> app, IConfiguration configuration, ILogger<DispaccioController> logger, 
+        public DettaglioDistinteController(IOptions<RARSettings> app, IConfiguration configuration, ILogger<DispaccioController> logger,
             IHostingEnvironment hostingEnvironment, IHttpContextAccessor httpContextAccessor)
             : base(app, configuration, logger, hostingEnvironment, httpContextAccessor)
         {
         }
+
         public async Task<ActionResult<IEnumerable<string>>> Index(string distinta)
         {
-            using (var client = new HttpClient())
+            using (var handler = new HttpClientHandler())
             {
-                client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
-                var result = await client.GetAsync("StoricoCartelle/DettaglioDistinteStoricoCartelle/" + distinta);
-                if (result.StatusCode != HttpStatusCode.OK) return View("ErroreDettaglioDistinte");
-                var response =
-                    JsonConvert.DeserializeObject<List<Detail>>(await result.Content.ReadAsStringAsync());
-
-                var vm = new DettaglioDistinteViewModel
+                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                using (var client = new HttpClient(handler))
                 {
-                    Details = response,
-                    Distinta = distinta
-                };
+                    client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
+                    var result = await client.GetAsync("StoricoCartelle/DettaglioDistinteStoricoCartelle/" + distinta);
+                    if (result.StatusCode != HttpStatusCode.OK) return View("ErroreDettaglioDistinte");
+                    var response =
+                        JsonConvert.DeserializeObject<List<Detail>>(await result.Content.ReadAsStringAsync());
 
-                return View("DettaglioDistinte", vm);
+                    var vm = new DettaglioDistinteViewModel
+                    {
+                        Details = response,
+                        Distinta = distinta
+                    };
+
+                    return View("DettaglioDistinte", vm);
+                }
             }
         }
 
@@ -48,19 +53,23 @@ namespace RAR.WEB.MVC.Controllers
         public async Task<ActionResult> CercaRacc1(string codeRacc)
         {
             //RicercaPerCodiceRaccomandata
-            using (var client = new HttpClient())
+            using (var handler = new HttpClientHandler())
             {
-                var codeRaccList = new[] { codeRacc };
+                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                using (var client = new HttpClient(handler))
+                {
+                    var codeRaccList = new[] { codeRacc };
 
-                HttpContent content = new StringContent(JsonConvert.SerializeObject(codeRaccList), Encoding.UTF8, "application/json");
-                client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
-                var result = await client.GetAsync("StoricoCartelle/DettaglioRaccomandata" + "/" + codeRacc);
-                if (result.StatusCode != HttpStatusCode.OK) return View("ErroreDettaglioDistinte");
-                var response =
-                    JsonConvert.DeserializeObject<DettaglioCodiceRaccViewModel>(await result.Content.ReadAsStringAsync());
-                var vm = response;
+                    HttpContent content = new StringContent(JsonConvert.SerializeObject(codeRaccList), Encoding.UTF8, "application/json");
+                    client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
+                    var result = await client.GetAsync("StoricoCartelle/DettaglioRaccomandata" + "/" + codeRacc);
+                    if (result.StatusCode != HttpStatusCode.OK) return View("ErroreDettaglioDistinte");
+                    var response =
+                        JsonConvert.DeserializeObject<DettaglioCodiceRaccViewModel>(await result.Content.ReadAsStringAsync());
+                    var vm = response;
 
-                return View("DettaglioCodiceRacc", vm);
+                    return View("DettaglioCodiceRacc", vm);
+                }
             }
         }
 
@@ -73,80 +82,97 @@ namespace RAR.WEB.MVC.Controllers
 
         public async Task<IActionResult> ExportToXls(string CodeRacc)
         {
-            using (var client = new HttpClient())
+            using (var handler = new HttpClientHandler())
             {
-                client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
-                var result = await client.GetAsync("StoricoCartelle/DettaglioRaccomandataStoredXLS/" + CodeRacc);
-                if (result.StatusCode != HttpStatusCode.OK)
-                    return BadRequest("Errore durante la generazione del file excel.");
-                return File(result.Content.ReadAsStreamAsync().Result, result.Content.Headers.ContentType.ToString());
+                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                using (var client = new HttpClient(handler))
+                {
+                    client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
+                    var result = await client.GetAsync("StoricoCartelle/DettaglioRaccomandataStoredXLS/" + CodeRacc);
+                    if (result.StatusCode != HttpStatusCode.OK)
+                        return BadRequest("Errore durante la generazione del file excel.");
+                    return File(result.Content.ReadAsStreamAsync().Result, result.Content.Headers.ContentType.ToString());
+                }
             }
         }
 
         public async Task<IActionResult> RetrieveImages(string codeRacc)
         {
-           
-            using (var client = new HttpClient())
+            using (var handler = new HttpClientHandler())
             {
-                client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
-                var result = await client.GetAsync("StoricoCartelle/Immagini/" + codeRacc);
-                if (result.StatusCode != HttpStatusCode.OK)
-                    return BadRequest("Errore durante il recupero delle immagini o immagini non presenti per questo codice.");
-                var response =
-                    JsonConvert.DeserializeObject<ImmaginiDbViewModel>(await result.Content.ReadAsStringAsync());
-                var vm = response;
-                return View("ImmaginiDB", response);
+                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                using (var client = new HttpClient(handler))
+                {
+                    client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
+                    var result = await client.GetAsync("StoricoCartelle/Immagini/" + codeRacc);
+                    if (result.StatusCode != HttpStatusCode.OK)
+                        return BadRequest("Errore durante il recupero delle immagini o immagini non presenti per questo codice.");
+                    var response =
+                        JsonConvert.DeserializeObject<ImmaginiDbViewModel>(await result.Content.ReadAsStringAsync());
+                    var vm = response;
+                    return View("ImmaginiDB", response);
+                }
             }
         }
+
         public async Task<IActionResult> RetrieveImagesPmr(string codeRacc)
         {
-           
-            using (var client = new HttpClient())
+            using (var handler = new HttpClientHandler())
             {
-                client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
-                var result = await client.GetAsync("StoricoCartelle/ImmaginiPmr/" + codeRacc);
-                if (result.StatusCode != HttpStatusCode.OK)
-                    return BadRequest("Errore durante il recupero delle immagini o immagini non presenti per questo codice.");
-                var response =
-                    JsonConvert.DeserializeObject<ImmaginiDbViewModel>(await result.Content.ReadAsStringAsync());
-                var vm = response;
-                return View("ImmaginiDBpmr", response);
+                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                using (var client = new HttpClient(handler))
+                {
+                    client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
+                    var result = await client.GetAsync("StoricoCartelle/ImmaginiPmr/" + codeRacc);
+                    if (result.StatusCode != HttpStatusCode.OK)
+                        return BadRequest("Errore durante il recupero delle immagini o immagini non presenti per questo codice.");
+                    var response =
+                        JsonConvert.DeserializeObject<ImmaginiDbViewModel>(await result.Content.ReadAsStringAsync());
+                    var vm = response;
+                    return View("ImmaginiDBpmr", response);
+                }
             }
         }
 
         public async Task<FileContentResult> RetrieveImgFront(string codeRacc)
         {
-            
-            using (var client = new HttpClient())
+            using (var handler = new HttpClientHandler())
             {
-                client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
-                var result = await client.GetAsync("StoricoCartelle/Immagini/" + codeRacc);
-                var response =
-                    JsonConvert.DeserializeObject<ImmaginiDbViewModel>(await result.Content.ReadAsStringAsync());
-                var vm = response;
-                var returnFile = new FileContentResult(vm.ImgFront, "Image / tiff")
+                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                using (var client = new HttpClient(handler))
                 {
-                    FileDownloadName = "FronteImg_" + codeRacc + "_" + DateTime.Now.ToString("yyyyMMddHHmmsss") + ".tif"
-                };
-                return returnFile;
+                    client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
+                    var result = await client.GetAsync("StoricoCartelle/Immagini/" + codeRacc);
+                    var response =
+                        JsonConvert.DeserializeObject<ImmaginiDbViewModel>(await result.Content.ReadAsStringAsync());
+                    var vm = response;
+                    var returnFile = new FileContentResult(vm.ImgFront, "Image / tiff")
+                    {
+                        FileDownloadName = "FronteImg_" + codeRacc + "_" + DateTime.Now.ToString("yyyyMMddHHmmsss") + ".tif"
+                    };
+                    return returnFile;
+                }
             }
-          
         }
+
         public async Task<FileContentResult> RetrieveImgRear(string codeRacc)
         {
-            
-            using (var client = new HttpClient())
+            using (var handler = new HttpClientHandler())
             {
-                client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
-                var result = await client.GetAsync("StoricoCartelle/Immagini/" + codeRacc);
-                var response =
-                    JsonConvert.DeserializeObject<ImmaginiDbViewModel>(await result.Content.ReadAsStringAsync());
-                var vm = response;
-                var returnFile = new FileContentResult(vm.ImgRetro, "Image / tiff")
+                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                using (var client = new HttpClient(handler))
                 {
-                    FileDownloadName = "RetroImg_" + codeRacc + "_" + DateTime.Now.ToString("yyyyMMddHHmmsss") + ".tif"
-                };
-                return returnFile;
+                    client.BaseAddress = new Uri(ApplicationSettings.WebApiUrl);
+                    var result = await client.GetAsync("StoricoCartelle/Immagini/" + codeRacc);
+                    var response =
+                        JsonConvert.DeserializeObject<ImmaginiDbViewModel>(await result.Content.ReadAsStringAsync());
+                    var vm = response;
+                    var returnFile = new FileContentResult(vm.ImgRetro, "Image / tiff")
+                    {
+                        FileDownloadName = "RetroImg_" + codeRacc + "_" + DateTime.Now.ToString("yyyyMMddHHmmsss") + ".tif"
+                    };
+                    return returnFile;
+                }
             }
         }
     }

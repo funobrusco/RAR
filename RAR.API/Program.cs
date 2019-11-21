@@ -12,8 +12,8 @@ namespace RAR.API
         {
             try
             {
-                log.Info("public static void Main(string[] args) - Starting web host");
                 CreateWebHostBuilder(args).Build().Run();
+                log.Info("public static void Main(string[] args) - Starting web host");
             }
             catch (Exception ex)
             {
@@ -31,6 +31,7 @@ namespace RAR.API
                     logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                     logging.AddConsole();
                     logging.AddDebug();
+                    logging.AddLog4Net();
                     logging.AddEventSourceLogger();
                 });
     }

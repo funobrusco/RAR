@@ -38,8 +38,7 @@ namespace RAR.API.Controllers
                 return BadRequest("Cartolina non valida");
 
             var result = await _cartolinaService.Nuova(nuovaCartolina);
-            //if (result.Errore())
-            //    return NotFound(string.Format("Errore durante il salvataggio della cartolina {0}", result.MessaggioErrore));
+            
             return Ok(result);
         }
 
@@ -50,9 +49,6 @@ namespace RAR.API.Controllers
                 return NotFound("Id dispaccio non valido");
 
             var result = await _cartolinaService.Elenca(idDispaccio.Value);
-
-            //if (result == null)
-            //    return Ok(string.Format("Non sono state trovate cartoline per il dispaccio {0}", idDispaccio.Value));
 
             return Ok(result);
         }
