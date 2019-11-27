@@ -78,8 +78,12 @@ namespace RAR.WEB.MVC.Controllers
                                 {
                                     client.BaseAddress = new Uri(_baseAddress);
                                     byte[] data;
+                                    
                                     using (var br = new BinaryReader(formfile.OpenReadStream()))
+                                    {
                                         data = br.ReadBytes((int)formfile.OpenReadStream().Length);
+                                    }
+
                                     ByteArrayContent bytes = new ByteArrayContent(data);
 
                                     multiContent.Add(bytes, "file", formfile.FileName);

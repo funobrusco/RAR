@@ -29,6 +29,40 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Dispaccio" asp-action="Index">Caricamento Dati dispaccio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="UploadFile" asp-action="Index">Caricamento furtati</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Reportistica
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="StoricoCartelle" asp-action="Index">Storico Cartelle</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="QueryManager" asp-action="Index">Query Manager</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <p class="nav navbar-text navbar-right">Centro Gestion Esiti:<strong> @User.Identity.Name</strong></p>
+                </div>
+            </div>
+        </nav>
+
+        @* BR1
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <p class="nav navbar-text navbar-right">Centro Gestion Esiti:<strong> @User.Identity.Name</strong></p>
                     <ul class="navbar-nav flex-grow-1">
@@ -53,36 +87,39 @@
                     </ul>
                 </div>
             </div>
-        </nav>
-        <!--
-        <nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow'>
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Centro Gestione esiti</a>
-                </div>
-                <div class="mynav_navbar">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Fetch data</a>
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Query MANAGER</a>
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Di" asp-action="Index">Carica FURTATI/smarriti</a>
-                    <div class="mynav_dropdown">
-                        <button class="mynav_dropbtn">
-                            Gestione dispacci <i class="fa fa-caret-down"></i>
-                        </button>
-                        <div class="mynav_dropdown-content">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Caricamento dati dispaccio</a>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Inserimento Dispaccio</a>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Apertura Dispaccio </a>
+        </nav>*@
 
-                        </div>
+
+
+        <!--
+    <nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow'>
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Centro Gestione esiti</a>
+            </div>
+            <div class="mynav_navbar">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Fetch data</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Query MANAGER</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Di" asp-action="Index">Carica FURTATI/smarriti</a>
+                <div class="mynav_dropdown">
+                    <button class="mynav_dropbtn">
+                        Gestione dispacci <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="mynav_dropdown-content">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Caricamento dati dispaccio</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Inserimento Dispaccio</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Apertura Dispaccio </a>
+
                     </div>
                 </div>
             </div>
-        </nav>-->
+        </div>
+    </nav>-->
         <environment include="Development">
             <script src="~/lib/jquery/dist/jquery.js"></script>
             @*
-                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>*@
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>*@
 
             <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
         </environment>

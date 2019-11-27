@@ -1,12 +1,12 @@
 ﻿@model RAR.WEB.MVC.Models.LoadReport
 <html>
 <head>
-    <title>Caricamento degli esiti Furtati/Smarriti</title>
-
 </head>
 <body>
+    @*<h4>Caricamento degli esiti Furtati/Smarriti</h4>*@
     <div class="text-center">
-        <h1 class="display-4">Caricamento degli esiti Furtati/Smarriti</h1>
+        <h3>Caricamento degli esiti Furtati/Smarriti</h3>
+        <hr />
     </div>
     <h4>Files caricati:</h4>
     <div>
@@ -30,7 +30,7 @@
             }
         </ul>
     </div>
-    <hr />
+
     <h4>Risultato caricamento files :</h4>
     @Html.TextAreaFor(Model => Model.LoadReportText, new { @readonly = true, rows = 40, cols = 120 })
 
@@ -38,11 +38,11 @@
     <input value='Download report' type='button'
            onclick='downloadText(document.getElementById("LoadReportText").value);' class="btn btn-outline-primary btn-posta-style" />
 
-    @Html.ActionLink("Aggiorna dati", "AggiornaDatiAsync", "UploadFile",null, new {id = "updateData" })
+    @Html.ActionLink("Aggiorna dati", "AggiornaDatiAsync", "UploadFile", null, new { id = "updateData" })
     <div id="dialog" title="Conferma">
         <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span><p name="confirmMessage"></p>
     </div>
-    <script type="text/javascript">  
+    <script type="text/javascript">
         $(document).ready(function () {
             $("#dialog").dialog({
                 autoOpen: false,
@@ -54,7 +54,7 @@
             $("a[id=updateData]").click(function (e) {
                 e.preventDefault();
                 var targetUrl = $(this).attr("href");
-               
+
                 $("p[name=confirmMessage]").html("Aggiornare gli esiti sul database?");
                 $("#dialog").dialog({
                     buttons: {
@@ -68,7 +68,7 @@
                 });
                 $("#dialog").dialog("open");
             });
-        }); 
+        });
 
 
         function downloadText(s) {
